@@ -1,0 +1,746 @@
+
+170508 MM :
+	* view/ColoredAnnotatedCurvePlot :
+	  * paintAxisDashes() :
+	    + pre-last dash is drawn (only label omitted)
+
+161026 MM :
+	* model/FileFormatCsv :
+	  * load() : bugfix : handling of empty parse result corrected
+
+160912 MM :
+	* algorithm/MICA :
+		+ setOriginalSorting() : reorders an alignment given the input order of curves
+		* align*() : 
+			+ sort final alignment
+	- obsolete/* : cleanup of old implementation classes
+	* algorithm/PICA :
+		* align() :
+			* alignment computation now truely lazy at the end of all testing
+	* controller/MicaController :
+		+ version : central version information
+	* controller/GuiController :
+		- cleanup of old commented code
+		- saveSetup() : obsolete
+		- loadSetup() : obsolete
+		- saveConfig() : obsolete
+		- loadConfig() : obsolete
+		- showView() : obsolete
+	* controller/MicaMain :
+		+ printVersionHeader() : header + version information
+		+ "-v" argument for version information
+	* model/Model :
+		* receiveMultipleSplitAlignmentSolution() :
+			* bugfix : has to call updateInterpolation() instead of resetFilteredAnnotations()
+	* view/MicaMainFrame :
+		- cleanup of old commented code
+		* actionPerformed() :
+			+ version information in "About" dialog
+		* selected point info label : setup corrected to show text on selection
+	- controller/CommandLineConfig : obsolete
+	- controller/CommandLineController : obsolete
+	- controller/ViewFilterAdjustment : obsolete
+	* view/ColoredAnnotatedCurvePlot :
+		* paintPoint() : bugfix : interface extended to enable correct coloring
+	- bin/* : obsolete (moved to version)
+	- data/* : obsolete (moved to data)
+			
+160909 MM :
+	+ controller/MicaController : generic controller interface for MICA to be run
+		by MicaMain
+		+ Arguments : all command line arguments to be handled
+	+ controller/CliController : command line interface controller to run MICA based
+		on command line arguments only
+	* controller/GuiController :
+		* param* : adaption to DoubleParameter interface changes
+	* view/DoubleParameter :
+		+ setValue() : abstract function how to set the final value
+		* set() : generic function that tests whether or not a value update
+			is needed and informs all listeners in case the value was changed
+	* view/DoubleParameterPanel :
+		* construction : bugfix textfield tooltip setup
+	* view/MicaMainFrame :
+		+ setDistanceSlopeBased() : to set the distance base radio button via controller
+	* view/ViewExportSelection :
+		* constructor : 
+			+ column delimiter now argument 
+	* view/ViewParse :
+		* constructor :
+			+ parseHeader now argument 
+	* model/Model :
+		+ getMinIvalDecomp() : was missing
+		* maxWarpFactorMax = 999
+	* model/FileFormatCsv :
+		+ writeX() : write x-coordinate table to file
+	* controller/MicaR :
+		+ default locale = english
+	* controller/CommandLineConfig :
+		- DistanceStrat : now MicaController.DistanceBase
+		* adaption to other changes
+	* controller/MicaMain :
+		* command line argument setup via joptsimple
+		+ setupArgumentParser() : generate arguments
+		+ checkRanges() : checks if number arguments are within according ranges
+		+ checkFiles() : checks existence of input files
+		+ main() :
+			+ negative exit status if exceptions raised
+	* controller/GuiController :
+		+ fileColumnSeparator + setter/getter : default column delimiter
+		+ fileColumnHeader : default whether or not to parse CSV header
+		* showView() : 
+			+ repaint() triggered (needed eg. due to model changes etc.)
+		+ start() : parses command line arguments, updates the model, and starts the GUI
+	+ lib/Jopt-simple-5.0.2.* : command line argument library
+
+160908 MM :
+	* algorithm/AnnotatedCurve : 
+		* resetFilteredAnnotations() : now public
+	* algorithm/MICA :
+		* align() :
+			+ checks for currentThread.isInterrupted() to abort computation
+		* ProgressiveAlignmentHandler :
+		* ProgressiveReferenceAlignmentHandler :
+			* addSubAlignment() :
+				+ checks for currentThread.isInterrupted() to abort computation
+	* algorithm/MicaRunner :
+		* run() :
+			+ checks for currentThread.isInterrupted() to abort computation
+	* algorithm/MICA :
+		* align() :
+			+ checks for currentThread.isInterrupted() to abort computation
+	* controller/CommandLineController :
+		* adaption to IProgressIndicator changes
+	* controller/GuiController :
+		* paramDistanceSamples : max boundary now 100000
+		- refreshMainViewPlot() : obsolete
+		- clearMainOutput() : obsolete
+		* distributeSolution() : 
+			+ now also forwards consensus curve
+	* model/Model :
+		+ alignmentConsensus + getter : consensus of the alignment
+		* calcAlignment() : 
+			* thread generation now via IProgressIndicator to enable abortion
+		* receiveMultipleSplitAlignmentSolution() :
+			+ consensus extraction and storage
+			* annotations of aligned curves are removed if not interval boundary
+	* view/ColoredAnnotatedCurve :
+		* addSplitPoint() :
+			* bugfix : resetFilteredAnnotations() call missing
+	* view/ColoredAnnotatedCurvePlot :
+		* paintPlotLegend() :
+			* bugfix : legend positioning corrected
+		* paintCurve() :
+			+ interval boundaries are always plotted
+	* view/IProgressIndicator :
+		+ Status enum for different states of progress
+		* updateProgressIndication() : now with status argument
+		+ startMica() : starts the Thread for a MicaRunner to have access for interrupt 
+	- view/ViewReferenceMicaSelection : renamed to ReferenceSelectionDioalog
+	+ view/ReferenceSelectionDioalog : former ViewReferenceMicaSelection
+	* view/MicaMainFrame :
+		- IProgressIndicator interface implementation now part of micaProgressDialog
+		+ micaProgressDialog : modal dialog that locks frame during computation
+		+ showConsensusInput/Output : switch to show/hide consensus in plot
+		* refreshPlot() : 
+			+ generates length corrected profiles and consensus if showConsensusInput is selected
+		- repaintProfilePlot() : obsolete
+		* displayResultPlot()
+			+ adds consensus if showConsensusOutput is selected
+		* actionPerformed() :
+			+ new buttons registered
+		+ MicaProgressDialog : dialog that handles mica running and abortion and blocks main view
+		+ getProgressIndicator() : returns micaProgressDialog
+
+160907 MM :
+	* view/DoubleParameterPanel :
+	  	* construction : 
+	  		* tool tip generation now includes default value
+	* view/MicaMainFrame :
+		+ filterExtremaValuePanel : extrema filter value
+		+ filterInflectionValuePanel : inflection filter value
+		+ curve panels now listen on filter value changes
+		* distance setup layout changed
+		+ filter parameter panel
+		+ distanceSamplesPanel : distance sample number parameter
+		+ grouping of alignment parameters
+		- menu items for config save/run
+		- menu items for setup save/load
+		+ implements Observer to listen for filter value changes to 
+		  update curve information
+		* changed profile->curve in most texts/tooltips
+		- most main menu tooltips disabled
+		* refreshPlot(): curve highlighting can be disabled now
+		- getSelectedDistanceRadio() : obsolete
+		- setSelectedDistanceRadio() : obsolete
+	* controller/MicaR :
+		* constructor : distWarpScaling was former warpScaling 
+	* controller/CommandLineController :
+		* adaptions to model changes
+	* controller/GuiController : 
+		+ paramFilterExtremaValue + getter
+		+ paramFilterInflectionValue + getter
+		+ paramDistanceSamples + getter
+		+ get/setDistanceSamples() : model interface
+		+ is/setDistanceSlopeBased() : model interface
+		* startMica() : no need for distance function argument
+		+ registerFilterChangeListener() : to enable notification on filter value changes
+	* model/FileFormatCsv :
+		* load() :
+			+ check for missing entries/columns
+	* model/Model :
+		+ distanceFunction + getter/setter : was in controller or even gui
+		* calcAlignment() : no distance function argument needed
+		* discardAlignment() : 
+			+ clears alignmentData
+		* receiveMultipleSplitAlignmentSolution() 
+			+ removes all automatic annotations from given curves
+	* view/ColoredAnnotatedCurve :
+		+ originalSplitAnnotation : to enable undo of split setting
+	* view/ColoredAnnotatedCurvePlot :
+		* selectCurveIndex default : no curve selected
+		* setSelectedCurve() : repaint only if new selection different from old
+		* updatePlotArea() :
+			+ boundary updates check whether curve end already reached
+		* paintCurve() :
+			+ check for curve ends are within plot area for start/end segment plotting
+		+ update() : Observer interface for CurveAnnotationFilter value changes : repaint
+	* algorithm/MICA :
+		* getConsensusCurve() :
+			+ x-max boundary check for consensus y-coordinate computation
+			+ split points are transferred into the consensus annotation
+		
+
+160812 MM :
+	* algorithm/CurveInflectionFilter :
+		* filter() : check now for <= min instead of > min
+	* algorithm/CurveExtremaFilter :
+		* filter() : check now for <= min instead of > min
+	* R/mica-functions.R : 
+		* getAnnotations() : bugfix : MicaR interface adaption
+		* documentation extended
+	* R/mica-example.R :
+		+ getAnnotations called
+	* algorithm/AnnotatedCurve : 
+		+ AnnotatedCurve(AnnotatedCurve) : copy construction
+	* algorithm/CurveAnnotation :
+		* isIntervalBoundary() : check simplified 
+
+160808 MM : 
+	* view/ColoredAnnotatedCurvePlot :
+		* paintCurve() : last segment painting corrected
+	* view/MicaMainFrame :
+		* displayResultPlot() :
+			+ call clearPlot() to clear the plotting area
+
+160803 MM : change summary
+	* algorithm/Curve :
+		+ getClosestPoint() : index of closest data point for a given x-coordinate
+		+ getYequiX() : returns interpolated equidistant y-coordinates
+	* algorithm/AnnotatedCurve : 
+		+ AnnotatedCurve(Curve) : construction from Curve
+	* algorithm/CurveAnnotation
+		* Type :
+			+ isIntervalBoundary() : check if end or split point
+	* algorithm/PointType :
+		+ toPointType() : conversion from CurveAnnotation 
+	- algorithm/MultipleSplitAlignment : obsolete
+	+ algorithm/IntRange : range of integer values
+	+ algorithm/DoubleRange : range of double values
+	+ algorithm/MicaRunner : thread for MICA computation
+	* algorithm/IMsaSolutionReceiver : updated to MICA data
+	- controller/Controller : renamed to GuiController
+	+ controller/GuiController : former Controller
+		+ parameter setup via DoubleParameter
+		- local filter stuff removed
+		+ maxRelXShift parameter
+	* controller/Debug :
+		* plotCurves() : 
+			* now original curve data is plotted rather than interpolated data
+	* controller/CommandLineConfig:
+	* controller/CommandLineController:
+	* controller/MicaMain:
+		* adaption to new interface and data
+	* model/* :
+		* adaption to new interfaces and data
+	+ view/DoubleParameter : represents a parameter with double values in given boundaries
+		and enables automatic updates if its value is changed
+	+ view/DoubleParameterPanel : button-label-combination to setup and show a DoubleParameter
+	+ view/ColoredAnnotatedCurve : annotated curve with additional view information
+	+ view/ColoredAnnotatedCurvePlot : plot panel for ColoredAnnotatedCurve objects
+		+ point selection listening reenabled
+		+ split point plotting reenabled
+		+ zoom change anchors in plot area center
+	* view/* : 
+		* adaption to new interfaces and data
+	* view/ISelectedPlotPointInfoListener :
+		* selectedPlotPointChanged() : now double coordinates and CurveAnnotation.Type
+	* view/ViewImportFilterExecute :
+		* background color change now in Plot menu
+		- point type combobox
+		* curve foreground selection reenabled
+	+ obsolete package : contains all old sources not needed anymore
+	- view/ViewImportFilterExecute : rename MicaMainFrame
+	+ view/MicaMainFrame : former ViewImportFilterExecute
+		- generateTimeString() : now in Model
+		+ paramMaxRelXShiftPanel : panel for maxRelXShift setup
+	* model/Model :
+		+ generateTimeString() : formerly in MicaMainFrame
+		+ maxRelXShift getter and setter 
+
+160711 MM
+	* algorithm/PICA :
+		* align() :
+			+ x-coordinates shifted to mean x-min if necessary
+	* algorithm/MICA :
+		* fuseAlignments() :
+			+ xShift computed and applied
+		* updateX() :
+			+ new param xShift : added to all x-coordinates
+
+160706 MM
+	* algorithm/Curve :
+		* toString() : 
+			* output format unified with Arrays.toString()
+	* algorithm/AnnotatedCurve :
+		* toString() : 
+			* output format unified with Arrays.toString()
+	* algorithm/CurveDistance :
+	* algorithm/*Distance :
+		+ getDescription() : string description of the distance measure
+	* algorithm/SampledCurveDistance :
+		* getDistance() :
+			- BUGFIX : length check was useless and wrongly placed
+	* algorithm/PICA :
+		+ maxRelXShift : limitation of the x-warping by a relative x-shift boundary
+		* construction() : 
+			+ maxRelXShift parameter
+		* align() :
+			* only applies decomposition if the relative-x-shifts of the split-points <= maxRelXShift 
+	* algorithm/MICA :
+		+ maxRelXShift : limitation of the x-warping by a relative x-shift boundary
+		* construction() : 
+			+ maxRelXShift parameter
+		* align*():
+			+ maxRelXShift forwarding to PICA
+		* MicaData :
+			+ fuseGuide : PICA alignment used for fusing
+		* fuseAlignments() :
+			+ stores the used PICA alignment in MicaData.fuseGuide
+	* controller/MicaR :
+		+ final exception handling to push messages to Debug.out
+		* construction :
+			+ maxRelXShift parameter
+		+ getOriginalPairwiseDistances() : pairwise distances before alignment with equal length
+		+ getAlignedPairwiseDistances() : former getPairwiseDistances() : pairwise distances after alignment
+		* getPairwiseDistances() : computation of pairwise distances for a given curve set
+	* R/mica-functions.R :
+		* alignCurves() :
+			+ maxRelXShift parameter
+			+ outSlope parameter : if TRUE, slope values are added to the return list
+			* pairDist now a list of two tables (before and after alignment)
+	* R/mica-example.R : updated
+
+160705 MM
+	* algorithm/SampledCurveDistance : 
+		+ preFinalDistance() : reverse function for finalDistance() to combine 2 distances
+		* getDistance() : bugfix : finalDistance() call was amiss
+	* algorithm/*Distance :
+		+ preFinalDistance() implementation
+	* algorithm/PICA :
+		* align() :
+			+ local distance computation for the interval only 
+				(should be more precise since warpingFactor only for relevant for curInterval) 
+			+ distance computation based on non-warped curve data 
+				(should be faster)
+			+ lazy initialization of interval-specific data only if alignable points found 
+				(should be faster)
+			- curMinCurve* : obsolete due to distance computation without warping
+	- controller/DebugController : renamed to Debug
+	+ controller/Debug : former DebugController
+		+ out : PrintStream to write debug messages to
+	* controller/MicaR :
+		+ implements AutoClosable to support close() function
+		+ debugBuffer : buffer for debug output from MICA functions
+		* construction : sets Debug.out to the debugBuffer
+		+ close() : resets Debug.out to System.err
+		+ finalize() : resets Debug.out to System.err
+		+ getDebugOutput() : access to the accumulated debug output and debugBuffer reset
+	* all temporary output etc. now goes to Debug.out
+	* R/mica-functions.R :
+		* alignCurves() :
+		* getAnnotations() :
+			+ check for debug output and print if present
+
+160704 MM
+	* R/mica-functions.R :
+		+ getMeanCurve() : computes the mean consensus curve for a set of curves
+		* getAnnotations() :
+			* docu updated
+			+ param minRelSlopeHeight : inflection point filter value
+		* alignCurves() :
+			+ param minRelSlopeHeight : inflection point filter value
+			+ param minRelIntervalLength : minimal relative interval length to further decompose
+	- algorithm/CurveManhattanDistance : now CurveMeanAbsoluteDistance
+	- algorithm/SlopeManhattanDistance : now SlopeMeanAbsoluteDistance
+	+ algorithm/SampledCurveDistance : super class for all sample-based distance functions
+		+ getSamplePositions() : computes the sample points within an interval of the curve
+		+ getStepSize() : x-step size for equidistant sampling
+		+ getDistance() : generic distance computation
+	+ algorithm/CurveMeanAbsoluteDistance : mean absolute error in y
+	+ algorithm/SlopeMeanAbsoluteDistance : mean absolute error in slope
+	* algorithm/CurveRmsdDistance : subclass of SampledCurveDistance
+	* algorithm/SlopeRmsdDistance : subclass of SampledCurveDistance
+	* algorithm/Curve :
+		* fields now protected to enable access in subclass
+		+ field slopeMin/Max
+		- spline : renamed to interpolation
+		+ interpolation : former spline but now more general
+		- splineDerivative : renamed to derivative
+		+ derivative : former splineDerivative
+		- updateSpline() : renamed to updateInterpolation()
+		+ updateInterpolation() : set new interpolator for x/y data
+			* uses now a linear interpolator for the curve data
+		+ initSlope() : general utility function for slope initialization
+		* getSlope() :
+			* slope intialization now done via initSlope()
+		+ getSlopeMax/Min() : access to min/max value of slope
+	* algorithm/AnnotatedCurve :
+		* relabelInflectionPoints() : 
+			* ascent/descent check now on slope data rather than y-data
+			+ removes slope minima in ascents and slope maxima in descents
+		+ updateInterpolation() : overwrites Curve method to ensure refiltering of annotations
+		+ initSlope() : overwrites Curve method to ensure slope of curve min/max is set to 0
+	* algorithm/CurveAnnotation :
+		* Type :
+			+ isExtremumY() : checks whether the annotation is a curve extremum
+			+ isExtremumSlope() : checks whether the annotation is a slope extremum
+			+ isInflection() : checks whether the annotation is an inflection point
+			+ isManual() : checks whether the annotation is a manual one
+	+ algorithm/CurveInflectionFilter : removes inflection points where the 
+		absolute slope is below a given (relative) threshold
+	* algorithm/IntervalDecomposition :
+		* updated to Curve changes
+	* algorithm/MICA :
+		* distanceFunction : now SampledCurveDistance subclass
+		+ minRelIntervalLength : minimal relative interval length to enable further decomposition
+		- precisionDeltaLengthFactor : now part of MicaPrecision
+		* updateX() : now takes curve length rather than precision delta
+		* getPosToInsert() : now takes curve length rather than precision delta
+	* algorithm/PICA :
+		* distanceFunction : now SampledCurveDistance subclass
+		+ minRelIntervalLength : minimal relative interval length to enable further decomposition
+		* align() :
+			+ checks for minimal interval length before trying to decompose
+			+ computes distance BEFORE doing a decomposition by warping the set of
+				sample points used for distance computation
+	+ algorithm/MicaPrecision : utility function to scale precision of coordinate comparison
+		+ precisionDeltaLengthFactor : factor to be multiplied to the curve length to get the 
+			absolute precision delta for x-coordinate comparison
+		+ sameX() : two position are considered as same if only differing in the length dependent 
+			precision delta
+		+ getPrecisionDelta() : computes the absolute precision delta for a given curve length
+	* controller/MicaR :
+		* distanceFunction : now SampledCurveDistance subclass
+		+ curveInflectionFilter : CurveInflectionFilter registered for all curves
+
+160701 MM
+	* algorithm/IntervalDecomposition :
+		* getIntervalAnnotations() :
+			* BUGFIX : sublist was missing right most element
+	+ algorithm/MicaPrecision : utility class to handle x-coordinate comparison
+		with a given precision tolerance
+		+ precisionDeltaLengthFactor : formerly member of MICA
+		+ getPrecisionDelta() : generates the precision delta value for a curve length
+		+ sameX() : tests two coordinates for equivalence given the precision delta value
+		
+
+160630 MM
+	* algorithm/Curve :
+		- spline : renamed to interpolation
+		+ interpolation : former spline
+		* splineDerivative : renamed to derivative
+		+ derivative : former splineDerivative
+		* construction: interpolation now a LinearInterpolation instead of SplineInterpolation
+	* algorithm/LinearCurveDistanceWarpingCorrection :
+		+ warpScaling : scaling factor for the warping factor
+	* algorithm/PICA :
+		* construction : setup of NoCurveDistanceWarpingCorrection or
+			LinearCurveDistanceWarpingCorrection depending on parameters
+	* algorithm/MICA :
+		+ warpScaling : parameter to be forwarded to PICA
+		* construction : setup of warpScaling
+		* align*() : setup of PICA depending on warpScaling setup
+	* controller/MicaR :
+		+ warpScaling : parameter to be forwarded to MICA
+		* construction : setup of warpScaling
+		+ getAnnotations() : access to the filtered annotations of a curve
+	* algorithm/AnnotatedCurve :
+		* addAnnotations() :
+			* BUGFIX : was checking at wrong indices before overwriting annotations
+			* BUGFIX : overwrite check was using compare with IS_POINT instead of new annotation
+	+ test/TestCurveAnnotation :
+		+ testTypeCompare()
+
+160629 MM
+	* algorithm/AnnotatedCurve :
+		* getFilteredAnnotations() : filter order preserved
+	* algorithm/CurveAnnotation :
+		* Type :
+			* BUGFIX : IS_MINIMUM_AUTO had the same value than IS_DERIVATIVE_MAXIMUM_AUTO
+			* isOpposite() : BUGFIX was not handling type1==minimum
+			+ IS_INFLECTION_* : inflection point annotations
+	* algorithm/AnnotatedCurve :
+		+ relabelInflectionPoints() : replaces slope min/max annotations with 
+			according inflection point annotations
+	* algorithm/CurveExtremaFilter :
+		* filter() :
+			* BUGFIX : annotation comparison was not using coordinate index but annotation index
+	* R/mica-functions.R :
+		* alignCurves() : 
+			* default minRelMinMaxDist = 0.01 (otherwise too much filtering)
+	
+160628 MM
+	+ algorithm/SlopeManhattanDistance : Manhattan distance on slope
+	* algorithm/MICA :
+		+ alignToReference() : alignment with fixed reference curve
+		+ ProgressiveReferenceAlignmentHandler : distance handler for fixed reference
+	* algorithm/Curve :
+		- Serializable interface : not needed for now
+	* controller/MicaR  :
+		* MicaR() : 
+			+ handling of slope Manhattan distance function selection
+		+ referenceIndex : index of the reference within originalCurves
+		+ addReferenceCurve() : adds the reference (check if not already present)
+		* align() : runs reference-based alignment if referenceIndex >= 0
+	* R/mica-functions.R :
+		* alignCurves() :
+			+ handling of slope Manhattan distance function selection
+			+ reference : index of the reference curve within the data (optional)
+			  -> runs a reference-based alignment if > 0
+
+160624 MM
+	+ R/mica-functions.R : R interface utility functions
+	+ R/mica-example.R : R mica example and how-to
+	+ R/rJava.pdf : documentation of rJava R package
+	+ controller/MicaR : controller for R-interface
+		+ extremaFilter : filter used for all curves
+		+ setExtremaFilterValue()
+	+ controller/DebugController : controller to enable faster debugging of curve alignments
+		+ plotCurves() : JDialog-based curve visualization
+	* algorithm/PICA :
+		+ distanceCorrectionFunction : CurveDistanceWarpCorrection for distance and warping factor
+		* PICA() : 
+			+ default distanceCorrectionFunction = LinearCurveDistanceWarpingCorrection
+		* align() :
+			* includes now distanceCorrectionFunction for final distance computation
+	* algorithm/MICA :
+		* getConsensusCurve() :
+			* annotations are now not fused but newly computed for the consensus
+			+ annotation filters common to all curves are added to the consensus
+		* fuseAlignments() :
+			* annotations are now not fused but newly computed for the consensus
+		- updateAnnotations() : obsolete due to fuseAlignments() changes
+		* MicaData :
+			+ getGuideTree() : NEWICK string representation of the alignment guide tree
+	* algorithm/AnnotatedCurve :
+		* getAnnotationFilter() : return type updated
+	* algorithm/Curve :
+		* updateSpline() :
+			* BUGFIX : was not updating splineDerivative
+	* algorithm/IntervalDecomposition :
+		+ getDecompositionString() : string representation of the decomposition (for debug)
+	+ algorithm/CurveDistanceWarpCorrection : interface to combine warping and alignment distance
+	+ algorithm/NoCurveDistanceWarpingCorrection : ignores the warping factor
+	+ algorithm/LinearCurveDistanceWarpingCorrection : multiplies warping factor and distance
+
+160616 MM
+	* algorithm/Curve :
+		+ hashCode() 
+		+ equals()
+	* algorithm/AnnotatedCurve :
+		+ toString()
+		+ toString(digits)
+		+ equals()
+
+160615 MM
+	* algorithm/CurveAnnotation :
+		- IS_* : now part of enum Type
+		+ Type : enum that holds all possible annotation types
+			+ manual annotations = negation of automatic annotations
+			+ value : integer representation of this type
+			+ ofValue() : returns Type for a given value
+			+ isOpposite() : returns min/max opposite type
+			+ compare() : defines an order on Types
+			+ isAlignable() : checks whether or not two Types can be aligned
+			+ toString() : according Type string representation
+		- getTypeString() : part of Type
+	* algorithm/AnnotatedCurve :
+		* annotation : type changed from int to CurveAnnotation.Type
+		* adaptions to CurveAnnotation.Type
+	* algorithm/Curve :
+		+ toString(int) : string representation with rounding to given number of digits
+	* algorithm/CurveExtremaFilter :
+		- isOppositeType() : directly using Type.isOpposite()
+		* isExtremum() : + handling of manual annotations added
+	* algorithm/IntervalDecomposition() :
+		* curve name = orginal name + "'"
+		* isCompatible() :
+			* check using Type.isAlignable() rather than equivalence check
+	* algorithm/PICA :
+		* align() :
+			* check using Type.isAlignable() rather than equivalence check
+	* algorithm/MICA :
+		* getConsensusName() 
+			* bugfix : stream collection/joining fixed
+		- guideTreeGenerator : obsolete, replaced by ProgressiveAlignmentHandler
+		+ getRelativePositions() : computes relative positions for x-coordinates
+		+ getPosToInsert() : extension of the binarySearch to allow for a given 
+			precisionDelta for comparison
+		+ getLengthRatio() : utility function to compute the x-coordinate correction factors
+		* fuseAlignments() : implementation extended
+		+ updateX() : utility function for x-coordinate update
+		+ updateAnnotations() : utility function for annotation update
+		* align() : 
+			* bugfix : curve copy was using first curve only
+
+160610 MM
+	* algorithm/AnnotatedCurve :
+		+ constructors that take (filtered) annotations as argument
+	* algorithm/GuideTreeGenerator (and subclasses) :
+		* PicaData now part of PICA
+	* algorithm/PICA :
+		+ PicaData : alignment result container
+		* align*() : returns now PicaData and does not overwrite input arguments
+	* algorithm/MICA :
+		- PicaData : replaced by PICA.PicaData
+		* precisionDeltaLengthFactor : compute minimal precision for x-coordinate comparisons 
+		  based on length*factor
+		* align() :
+			* returns now MicaData, which represents the final alignment and all
+			  progressive subalignments in a tree data structure
+		+ MicaData : represents a multiple (sub)alignment
+			+ curves : curves of the alignment
+			+ consensus : the consensus of the alignment
+			+ fusedAlignments : list of alignments that were fused to create this alignment
+		+ ProgressiveAlignmentHandler : handler for pairwise distance computations
+		+ getConsensusName() : generates a name for the consensus curve of an alignment
+		+ getConsensusCurve() : computes the consensus curve for an alignment
+		+ fuseAlignments() : fuses two alignments based on their consensus PicaData information
+
+160609 MM
+	- algorithm/AbstractCurveAnnotationFilter : renamed to ObservableCurveAnnotationFilter
+	+ algorithm/ObservableCurveAnnotationFilter : former AbstractCurveAnnotationFilter 
+		+ extends Observable
+		- no specific listener interface necessary due to Observer superclass
+	* algorithm/CurveAnnotationFilter :
+		- listener interface (not needed in filter interface)
+	* algorithm/CurveExtremumFilter :
+		* now subclass of ObservableCurveAnnotationFilter
+		* adaption to changed superclass
+	* algorithm/AnnotatedCurve :
+		* uses now list of ObservableCurveAnnotationFilter
+		* implements now Observer interface
+		* adaption to new Observer listener interface
+
+160607 MM
+	* algorithm/GuideTreeGenerator.GuideTreeNode
+		+ implements Iterable interface
+		+ PostOrderIterator
+	+ test: tree iteration  
+
+160606 MM
+	+ algorithm/GuideTreeGenerator : general interface to compute a guide tree for a 
+	  given distance matrix information
+	+ algorithm/MinGuideTreeGenerator : computes a guide tree by using the minimal
+	  pairwise distances between clusters
+	+ algorithm/CurveManhattanDistance : former CurveAreaDistance
+	- algorithm/CurveAreaDistance : renamed to CurveManhattanDistance
+	* algorithm/*Distance : 
+	  * using now FastMath instead of Math functions
+
+160603 MM
+	* algorithm/Curve :
+		+ toString() : for debug output
+		+ updateSpline() : has to be called whenever the data was changed
+	* algorithm/IntervalDecomposition :
+		* bugfix : updateSpline() calls added wherever x-coordinates changed
+	* algorithm/PICA :
+		* align() :
+			* bugfix : updateSpline() calls added wherever x-coordinates changed
+		+ alignRef() : reference-based alignment (calls align() with according weights) 
+	+ algorithm/MICA :
+		+ align() : general scheme sketched
+	* test/PICA updated
+
+160601 MM
+	* algorithm/CurveAnnotationFilter :
+		+ Listener interface to trigger updates in dependent classes when the filter was changed
+			+ filterChanged()
+		+ addListener() : adds a listener
+		+ removeListener() : removes a listener
+		+ filterChanged() : calls the Listener.filterChanged() for all registered listeners
+	+ algorithm/AbstractCurveAnnotationFilter : implements the listener related classes
+		+ addListener() : adds a listener
+		+ removeListener() : removes a listener
+		+ filterChanged() : calls the Listener.filterChanged() for all registered listeners
+	* algorithm/AnnotatedCurve :
+		+ implements CurveAnnotationFilter.Listener to updated filtered annotations on change
+		+ registration/unregistration from added/removed filters
+	* algorithm/CurveExtremaFilter :
+		+ now subclass of AbstractCurveAnnotationFilter instead of direct interface implementation
+		* setMinRelNeighDiff() :
+			+ calls filterChanged()
+	+ algorithm/CurveAreaDistance : implements a CurveDistance based on an estimator of the 
+		enclosed area between both curves
+	+ algorithm/CurveRmsdDistance : RMSD of y-coordinates on a given number of interpolation points 
+	+ algorithm/SlopeRmsdDistance : RMSD of first derivative on a given number of interpolation points 
+	* tests updated
+
+160526 MM
+	* algorithm/CurveExtremumFilter 
+		* filter() :
+			+ filters now also enclosed inflection points, since part of the noise
+	+ algorithm/TestCurveExtremumFilter
+	+ algorithm/TestIntervalDecomposition
+	+ algorithm/PICA : 
+		+ implements pairwise alignment based on IntervalDecompositions
+	+ algorithm/CurveDistance : 
+		+ interface for distance functions on curves
+
+160518 MM
+	+ lib/junit-4 : for JUnit tests
+	+ test source folder
+	
+160515 MM
+	* REIMPLEMENTATION OF CORE ALGORITHM AND DATA STRUCTURES
+	+ algorithm/Curve : 
+		+ holds curve data points 
+		+ enables interpolation based on splines
+		+ enables derivatives based on splines
+	+ algorithm/AnnotatedCurve :
+		+ annotation information for each coordinate
+		+ filtering of annotations to derive list of CurveAnnotations
+	+ algorithm/CurveAnnotation :
+		+ represents one coordinate of a curve that is annotated
+		+ provides type and index of the coordinate
+
+160513 MM
+	+ algorithm/ProfileUtil : former algorithm/DataPointDerivator
+		+ interpolateDataPoints() : formerly DataPointDerivator.Derivate.deriveDataPoints()
+	- algorithm/DataPointDerivator : renamed to ProfileUtil
+
+160513 MM
+	+ Changelog added
+	+ todo list added
+	+ lib/commons-math3* : apache commons-math library including sources and javadoc
+	+ lib/commons-lang3* : apache commons-lang library including sources and javadoc
+	+ versions/1.0.0/mica.jar : save version for comparative application
+	* algorithm/Profile :
+		* calculateSlopeValuesFromProfile() :
+			* replaced linear slope interpolation with spline derivative computation
+	* algorithm/DataPointDerivator :
+		* Derivate :
+			* deriveDataPoints() : now based on spline interpolation
+			- insertNewDataPointsToSet() : obsolete
+			- removeDataPointsFromSet() : obsolete
+			- linearInterpolation() : obsolete
