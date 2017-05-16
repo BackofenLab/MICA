@@ -31,4 +31,31 @@ of all curves. The according consensus curve yields thus the representative cons
 for the input.
 
 
+## Dependencies
+
+- MICA tool :
+  - Java-8
+- MICA R-interface :
+  - Java-8
+  - `R` (tested with version 3.3.0)
+  - [`rJava`](https://www.rforge.net/rJava/) - R package to interface Java runtime (tested with version 0.9-8)
+  
+Required non-standard Java libraries are either included within the JAR file or part of the provided packages.
+
+
+
+## R-interface
+
+To use MICA from within R, the following steps are necessary:
+- install on your machine JRE or JDK version 8 or higher (Java SE Development Kit) e.g. from [Oracle](http://www.oracle.com/technetwork/java/javase/downloads/index.html)
+- install `rJava` (e.g. using `install.packages("rJava"` within `R`)
+- note: `rJava-0.9-8` does not identify the installed Java runtime correctly/automatically on Windows! Here the following additional steps are needed:
+   - add the path to file `jvm.dll` to your `PATH` environment variable
+     - edit the `PATH` system variable (see [help](https://www.java.com/en/download/help/path.xml))
+     - for JRE : add e.g. `;C:\Program Files (x86)\Java\jre1.8.0_91\bin\server` at the end of the value
+     - for JDK : add e.g. `;C:\Program Files\Java\jdk1.8.0_92\jre\bin\server` at the end of the value
+     - note: use `;` as a path separator and adapt the pathes from above! :-)
+- download and extract the MICA R-package from the [release page](https://github.com/BackofenLab/MICA/releases)
+- load the MICA R functions using `source("PATH_TO_MICA_R_PACKAGE/mica-functions.R");` from within `R`
+
 
