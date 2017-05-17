@@ -91,8 +91,14 @@ public class FileFormatCsv implements IFileFormat {
 					 * If in special case the first column header name is empty
 					 * take also the next one, otherwise use the first one
 					 */
-					if (specialCase
-							&& entry[0].replaceAll("\\s+", "").isEmpty()) {
+					if (specialCase 
+							&& entry[0].replaceAll("\\s+", "").isEmpty()
+							) 
+					{
+						// stop if column not part of table data
+						if (col+1 >= entry.length) {
+							break;
+						}
 						headerName = new String(entry[col + 1]);
 					} else {
 						headerName = new String(entry[col]);
@@ -111,6 +117,10 @@ public class FileFormatCsv implements IFileFormat {
 						if (!specialCase) {
 							data.add(Double.parseDouble(entry[col]));
 						} else {
+							// stop if column not part of table data
+							if (col+1 >= entry.length) {
+								break;
+							}
 							data.add(Double.parseDouble(entry[col + 1]));
 						}
 					} catch (NumberFormatException e) {
