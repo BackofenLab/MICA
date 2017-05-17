@@ -97,6 +97,7 @@ and their parameters detailed.
 
 
 <a name="alignCurves" />
+
 #### `alignCurves(..)`
 
 `alignCurves()` computes a multiple curve alignment using MICA for a given set of curves. It automatically identifies
@@ -139,6 +140,7 @@ NOTE: slope values do change during alignment, such that the filtering shows dyn
 
 
 <a name="getAnnotations" />
+
 #### `getAnnotations(..)`
 
 `getAnnotations(..)` computes the curve annotations that would be used for alignment.
@@ -175,6 +177,7 @@ NOTE: slope values do change during alignment, such that the filtering shows dyn
 
 
 <a name="getEquiX" />
+
 #### `getEquiX(..)`
 
 `getEquiX(..)` generates for a given set of curves for their respective y coordinates equidistant x coordinates in the
@@ -192,6 +195,7 @@ x coordinates is returned.
 
 
 <a name="getRelCoord" />
+
 #### `getRelCoord(..)`
 
 `getRelCoord(..)` computes the relative coordinates in the interval [0,1]
@@ -212,6 +216,7 @@ The function can be applied to single data vectors or multiple curve data at onc
 
 
 <a name="interpolateCurve" />
+
 #### `interpolateCurve(..)`
 
 `interpolateCurve(..)` computes a linear interpolation of a curve for a given number of equidistant
@@ -230,6 +235,7 @@ x coordinates.
 
 
 <a name="interpolateCurves" />
+
 #### `interpolateCurves(..)`
 
 `interpolateCurves(..)` computes the linearly interpolated values of the given curves by calling
@@ -248,6 +254,7 @@ x coordinates.
 
 
 <a name="getMeanCurve" />
+
 #### `getMeanCurve(..)`
 
 `getMeanCurve(..)` computes the mean curve for the given curves for a given
@@ -268,6 +275,7 @@ and than the mean per row (x coordinate) is computed.
 
 
 <a name="initMica" />
+
 #### `initMica(..)`
 
 `initMica(..)` initializes the MICA `R` interface by initializing `rJava` and setting the needed class path directives
