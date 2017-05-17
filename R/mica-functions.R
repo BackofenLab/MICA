@@ -193,7 +193,7 @@ getMeanCurve <- function( x, y, samples ) {
 
 
 #########################################################
-#' Computes the spline interpolated values of the given curve.
+#' Computes the linearly interpolated values of the given curve.
 #' NOTE: you have to call initMica() before calling this function
 #' 
 #' @param x the x-values of the curve's points (vector(double), length >= 3)
@@ -241,7 +241,7 @@ interpolateCurve <- function( x, y, samples ) {
 
 
 #########################################################
-#' Computes the spline interpolated values of the given curves.
+#' Computes the linearly interpolated values of the given curves.
 #' NOTE: you have to call initMica() before calling this function
 #' 
 #' @param x the x-values of the curves' points (data.frame(vector(double)) or matrix, nrow >= 3)
@@ -383,7 +383,7 @@ smoothData <- function( y, dataPoints=0, loessSpan=0) {
 #'         i.e. the annotation type for each coordinate of the curve
 #' 
 #' @export
-getAnnotations <- function( y, x=getEquiX(y), minRelMinMaxDist=0.01, minRelSlopeHeight=0 ) {
+getAnnotations <- function( y, x=getEquiX(y), minRelMinMaxDist=0.01, minRelSlopeHeight=0.01 ) {
 	
 	# ensure mica was loaded
 	if ( ! micaSetup$wasInitialized ) stop("MICA was not initialized, run 'initMica' first");
