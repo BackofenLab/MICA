@@ -65,7 +65,7 @@ are detailed while following a typical MICA workflow.
 The MICA GUI currently supports only the import of equidistant curve data, 
 i.e. the difference between successive x-coordinates is equal between all
 data points. Thus, their distance is assumed to be 1. Furthermore, the 
-first x-coordinate is set to 1.
+first x-coordinate is set to 0.
 The y-values for all curves are to be encoded columns-wise.
 
 Curve data can be loaded in CSV format (one curve per column) either
@@ -218,7 +218,7 @@ and their parameters detailed.
 <a name="alignCurves" />
 
 ----------------------
-#### `alignCurves(..)`
+#### `alignCurves( x, y, distFunc, distSample, maxWarpingFactor, maxRElXShift, minRelIntervalLength, minRelMinMaxDist, minRelSlopeHeight, reference, outSlope )`
 
 
 `alignCurves()` computes a multiple curve alignment using MICA for a given set of curves. It automatically identifies
@@ -263,7 +263,7 @@ NOTE: slope values do change during alignment, such that the filtering shows dyn
 <a name="getAnnotations" />
 
 -------------------------
-#### `getAnnotations(..)`
+#### `getAnnotations( x, y, minRelMinMaxDist, minRelSlopeHeight )`
 
 `getAnnotations(..)` computes the curve annotations that would be used for alignment.
 
@@ -301,7 +301,7 @@ NOTE: slope values do change during alignment, such that the filtering shows dyn
 <a name="getEquiX" />
 
 -------------------
-#### `getEquiX(..)`
+#### `getEquiX( y )`
 
 `getEquiX(..)` generates for a given set of curves for their respective y coordinates equidistant x coordinates in the
 range [0,1]. That is, for each curve (column in input) the number of non-NA y coordinates is identified and the x coordinate 
@@ -320,7 +320,7 @@ x coordinates is returned.
 <a name="getRelCoord" />
 
 ----------------------
-#### `getRelCoord(..)`
+#### `getRelCoord( d )`
 
 `getRelCoord(..)` computes the relative coordinates in the interval [0,1]
 for the given data by applying to each coordinate d[i]
@@ -344,7 +344,7 @@ The function can be applied to single data vectors or multiple curve data at onc
 ---------------------------
 #### `interpolateCurve(..)`
 
-`interpolateCurve(..)` computes a linear interpolation of a curve for a given number of equidistant
+`interpolateCurve( x, y, samples )` computes a linear interpolation of a curve for a given number of equidistant
 x coordinates.
 
 *Input parameters:* 
@@ -362,7 +362,7 @@ x coordinates.
 <a name="interpolateCurves" />
 
 ----------------------------
-#### `interpolateCurves(..)`
+#### `interpolateCurves( x, y, samples )`
 
 `interpolateCurves(..)` computes the linearly interpolated values of the given curves by calling
 `interpolateCurve()` for each column of the input.
@@ -382,7 +382,7 @@ x coordinates.
 <a name="getMeanCurve" />
 
 -----------------------
-#### `getMeanCurve(..)`
+#### `getMeanCurve( x, y, samples )`
 
 `getMeanCurve(..)` computes the mean curve for the given curves for a given
 number of equidistant x coordinates. To this end, each curve if interpolated using `interpolateCurves()`
@@ -404,7 +404,7 @@ and than the mean per row (x coordinate) is computed.
 <a name="initMica" />
 
 -------------------
-#### `initMica(..)`
+#### `initMica( micaJavaPath )`
 
 `initMica(..)` initializes the MICA `R` interface by initializing `rJava` and setting the needed class path directives
 to properly use MICA's Java implementation from within `R`. This function is typically automatically loaded, when the 
