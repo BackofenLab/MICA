@@ -68,10 +68,11 @@ data points. Thus, their distance is assumed to be 1. Furthermore, the
 first x-coordinate is set to 1.
 The y-values for all curves are to be encoded columns-wise.
 
-Curve data can be loaded in CSV format (one curve per column) using either a
+Curve data can be loaded in CSV format (one curve per column) either
 
-- double-click at the curve selection field in the upper left corner or
-- using the `Import curves` button below.
+- use the `File` submenu `Import curve`, or
+- double-click at the `Curve selection` field in the upper left corner, or
+- use the `Import curves` button below the selection.
 
 Both open a file dialog to select a CSV file to import data from.
 After file selection, an import preview dialog is opened. Therein, CSV
