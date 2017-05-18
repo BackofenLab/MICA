@@ -893,7 +893,6 @@ public class MicaMainFrame extends JFrame implements ActionListener,
 				ColoredAnnotatedCurve curveCopy = new ColoredAnnotatedCurve( new AnnotatedCurve(c.getCurve().getName(), newX, c.getCurve().getY(), c.getCurve().getAnnotation()), c.getColor());
 				// add filters
 				c.getCurve().getAnnotationFilter().stream().forEachOrdered( f -> curveCopy.getCurve().addAnnotationFilter(f) );
-				curveCopy.getCurve().getAnnotationFilter().stream().forEachOrdered( f -> System.err.println("curve "+curveCopy.getCurve().getName()+" "+System.identityHashCode(curveCopy.getCurve())+" new filter : "+System.identityHashCode(f)));
 				// store
 				plotSet.set(p, curveCopy );
 				// add as an initial decomposition
