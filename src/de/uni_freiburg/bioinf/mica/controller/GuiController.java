@@ -683,11 +683,7 @@ public class GuiController implements MicaController, ISolutionDistributor {
 		for (ColoredAnnotatedCurve cpd : resultSet) {
 			if (alignment == null)
 				alignment = new LinkedList<>();
-			/**
-			 * Add all profiles from the mica result to the align set, expect
-			 * the last entry this is the consensus profile which is in this
-			 * case a special parameter
-			 */
+			// Add all profiles from the mica result to the align set
 			alignment.add(cpd.getCurve());
 		}
 		/**
@@ -699,8 +695,8 @@ public class GuiController implements MicaController, ISolutionDistributor {
 		 * Create the view for profiles selection for export
 		 */
 		ViewExportSelection ves = new ViewExportSelection(mainView, input,
-				alignment, model.getAlignmentResult().consensus.getCurve(),
-				this.fileColumnSeparator);
+										alignment, model.getAlignmentResult(),
+										this.fileColumnSeparator);
 		ves.setVisible(true);
 		/**
 		 * Retrieve the selected profiles and export the set
