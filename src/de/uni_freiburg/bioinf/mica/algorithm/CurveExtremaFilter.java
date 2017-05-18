@@ -196,8 +196,8 @@ public class CurveExtremaFilter extends ObservableCurveAnnotationFilter {
 	 * @throws OutOfRangeException if the filter value is not in interval [0,1]
 	 */
 	public void setMinRelNeighDiff(double newRelMinNeighDiff) {
-		if (newRelMinNeighDiff < 0.0 || newRelMinNeighDiff > 1.0) throw new OutOfRangeException(newRelMinNeighDiff, 0, 1);
 		if (minRelNeighDiff != newRelMinNeighDiff) {
+			if (newRelMinNeighDiff < 0.0 || newRelMinNeighDiff > 1.0) throw new OutOfRangeException(newRelMinNeighDiff, 0, 1);
 			this.minRelNeighDiff = newRelMinNeighDiff;
 			// inform listener that the filter settings have changed
 			this.setChanged();
