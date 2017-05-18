@@ -102,11 +102,14 @@ public class CurveInflectionFilter extends ObservableCurveAnnotationFilter {
 	 * @throws OutOfRangeException if the filter value is not in interval [0,1]
 	 */
 	public void setMinRelHeight(double minRelHeight) {
-		if (minRelHeight < 0.0 || minRelHeight > 1.0) throw new OutOfRangeException(minRelHeight, 0, 1);
-		this.minRelHeight = minRelHeight;
-		// inform listener that the filter settings have changed
-		this.setChanged();
-		this.notifyObservers(minRelHeight);
+		// check if changed
+		if (this.minRelHeight != minRelHeight) {
+			if (minRelHeight < 0.0 || minRelHeight > 1.0) throw new OutOfRangeException(minRelHeight, 0, 1);
+			this.minRelHeight = minRelHeight;
+			// inform listener that the filter settings have changed
+			this.setChanged();
+			this.notifyObservers(minRelHeight);
+		}
 	}
 
 }
