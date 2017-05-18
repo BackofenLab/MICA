@@ -218,10 +218,10 @@ and their parameters detailed.
 <a name="alignCurves" />
 
 ----------------------
-#### `alignCurves( x, y, distFunc, distSample, maxWarpingFactor, maxRElXShift, minRelIntervalLength, minRelMinMaxDist, minRelSlopeHeight, reference, outSlope )`
+#### `alignCurves( x, y, distFunc, distSample, maxWarpingFactor, maxRelXShift, minRelIntervalLength, minRelMinMaxDist, minRelSlopeHeight, reference, outSlope )`
 
 
-`alignCurves()` computes a multiple curve alignment using MICA for a given set of curves. It automatically identifies
+`alignCurves(..)` computes a multiple curve alignment using MICA for a given set of curves. It automatically identifies
 landmarks within the curves that can be aligned, filters them according to the user defined settings and performs a
 progressive alignment to join all curves in a global alignment. 
 
@@ -342,9 +342,9 @@ The function can be applied to single data vectors or multiple curve data at onc
 <a name="interpolateCurve" />
 
 ---------------------------
-#### `interpolateCurve(..)`
+#### `interpolateCurve( x, y, samples )`
 
-`interpolateCurve( x, y, samples )` computes a linear interpolation of a curve for a given number of equidistant
+`interpolateCurve(..)` computes a linear interpolation of a curve for a given number of equidistant
 x coordinates.
 
 *Input parameters:* 
