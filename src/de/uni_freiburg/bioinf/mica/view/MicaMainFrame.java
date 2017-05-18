@@ -69,7 +69,6 @@ import de.uni_freiburg.bioinf.mica.algorithm.CurveAnnotationFilter;
 import de.uni_freiburg.bioinf.mica.algorithm.IntervalDecomposition;
 import de.uni_freiburg.bioinf.mica.algorithm.MICA;
 import de.uni_freiburg.bioinf.mica.algorithm.MicaRunner;
-import de.uni_freiburg.bioinf.mica.algorithm.ObservableCurveAnnotationFilter;
 import de.uni_freiburg.bioinf.mica.controller.Debug;
 import de.uni_freiburg.bioinf.mica.controller.GuiController;
 import de.uni_freiburg.bioinf.mica.controller.MicaController;
@@ -310,6 +309,8 @@ public class MicaMainFrame extends JFrame implements ActionListener,
 
 		profilePlotIn = new ColoredAnnotatedCurvePlot( true );
 		controller.registerFilterChangeListener( profilePlotIn );
+		controller.getParamFilterExtremaValue().addListener( profilePlotIn );
+		controller.getParamFilterInflectionValue().addListener( profilePlotIn );
 		profilePlotOut = new ColoredAnnotatedCurvePlot( false );
 		controller.registerFilterChangeListener( profilePlotOut );
 		/**
@@ -891,7 +892,8 @@ public class MicaMainFrame extends JFrame implements ActionListener,
 				// copy former curve
 				ColoredAnnotatedCurve curveCopy = new ColoredAnnotatedCurve( new AnnotatedCurve(c.getCurve().getName(), newX, c.getCurve().getY(), c.getCurve().getAnnotation()), c.getColor());
 				// add filters
-				c.getCurve().getAnnotationFilter().stream().forEach( f -> curveCopy.getCurve().addAnnotationFilter(f) );
+				c.getCurve().getAnnotationFilter().stream().forEachOrdered( f -> curveCopy.getCurve().addAnnotationFilter(f) );
+				curveCopy.getCurve().getAnnotationFilter().stream().forEachOrdered( f -> System.err.println("curve "+curveCopy.getCurve().getName()+" "+System.identityHashCode(curveCopy.getCurve())+" new filter : "+System.identityHashCode(f)));
 				// store
 				plotSet.set(p, curveCopy );
 				// add as an initial decomposition
