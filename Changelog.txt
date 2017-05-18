@@ -3,8 +3,26 @@
 	* view/MicaMainFrame :
 	  * refreshPlot() :
 	    * bugfix: curve copy did not copy filters
+	  * constructor() :
+	    + profilePlotIn now observer for filterExtremaValue and filterInflectionValue
+	      to fix strange filter update bug
 	* model/FileFormatCsv :
 	  + pruneQuotes : prunes quote signs from read CSV entries
+	* view/ViewExportSelection :
+	  * use MicaData in constructor
+	* constroller/GuiController :
+	  * exportResult() :
+	    * bugfix: use new ViewExportSelection constructor to avoid 
+	      exception if no alignment consensus available
+	* algorithm/AnnotatedCurve :
+	  * addAnnotations() : 
+	    * bugfix : was ignoring one position after plateau check
+	* algorithm/CurveInflectionFilter :
+	  * setMinRelHeight() :
+	    * only change value and inform listener if value different from old one
+	* view/ColoredAnnotatedCurvePlot :
+	  + implements ChangeListener<Number> to fix strange filter update bug
+	  + changed() : triggers repaint() on call
 
 170508 MM :
 	* model/FileFormatCsv :
