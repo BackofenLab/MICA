@@ -1,12 +1,26 @@
 
 170508 MM :
+	* view/MicaMainFrame :
+	  * refreshPlot() :
+	    * bugfix: curve copy did not copy filters
+
+170508 MM :
+	* model/FileFormatCsv :
+	  * load() : 
+	    * bugfix : special handling if index column present (header of first column empty)
+	* algorithm/CurveExtremaFilter :
+	  * setMinRelNeighDiff() :
+	    * update only if new value differs from old value
+
+170508 MM :
 	* view/ColoredAnnotatedCurvePlot :
 	  * paintAxisDashes() :
 	    + pre-last dash is drawn (only label omitted)
 
 161026 MM :
 	* model/FileFormatCsv :
-	  * load() : bugfix : handling of empty parse result corrected
+	  * load() : 
+	    * bugfix : handling of empty parse result corrected
 
 160912 MM :
 	* algorithm/MICA :
