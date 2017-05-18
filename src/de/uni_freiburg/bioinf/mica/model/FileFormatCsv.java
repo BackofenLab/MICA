@@ -81,12 +81,16 @@ public class FileFormatCsv implements IFileFormat {
 				if (col >= entry.length)
 					continue;
 				
+				// prune quote signs
+				pruneQuotes( entry );
+				
 				/**
 				 * Skip first line of the CSV file, because this is only header
 				 * information.
 				 */
 				if (header) {
 					header = false;
+					
 					/**
 					 * If in special case the first column header name is empty
 					 * take also the next one, otherwise use the first one
@@ -167,6 +171,26 @@ public class FileFormatCsv implements IFileFormat {
 			profile = new Curve(headerName, yData );
 		}
 		return profile;
+	}
+
+	/**
+	 * Prunes quote signs from each entry String
+	 * 
+	 * @param entry the array of String from which to prune quote signs
+	 */
+	private void pruneQuotes(String[] entry) {
+		// prune each entry
+		for (int i=0; i<entry.length; i++) {
+			// check if to be pruned
+			if ( !entry[i].isEmpty() 
+					&& entry[i].charAt(0) == entry[i].charAt(entry[i].length()-1)
+					&& (entry[i].charAt(0) == '\'' || entry[i].charAt(0) == '"')
+					) 
+			{
+				// prune leading and trailing character
+				entry[i] = entry[i].substring(1, entry[i].length()-1);
+			}
+		}
 	}
 
 	/**
@@ -311,6 +335,9 @@ public class FileFormatCsv implements IFileFormat {
 			 */
 			if ((line = br.readLine()) != null) {
 				String[] entry = line.split(separator);
+				// prune quote signs
+				pruneQuotes(entry);
+				// check
 				for (String s : entry) {
 					/**
 					 * Replace all white spaces
@@ -325,6 +352,7 @@ public class FileFormatCsv implements IFileFormat {
 			 */
 			if ((line = br.readLine()) != null) {
 				String[] entry = line.split(separator);
+				pruneQuotes(entry);
 				for (String s : entry) {
 					if (!s.isEmpty())
 						numberCols--;

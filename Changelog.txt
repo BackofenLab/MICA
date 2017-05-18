@@ -3,6 +3,8 @@
 	* view/MicaMainFrame :
 	  * refreshPlot() :
 	    * bugfix: curve copy did not copy filters
+	* model/FileFormatCsv :
+	  + pruneQuotes : prunes quote signs from read CSV entries
 
 170508 MM :
 	* model/FileFormatCsv :
