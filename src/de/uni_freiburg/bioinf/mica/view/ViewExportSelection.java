@@ -23,6 +23,7 @@ import javax.swing.border.EtchedBorder;
 import javax.swing.border.TitledBorder;
 
 import de.uni_freiburg.bioinf.mica.algorithm.Curve;
+import de.uni_freiburg.bioinf.mica.algorithm.MICA.MicaData;
 
 /**
  * View for selecting profiles for export. This view uses the same profile
@@ -83,7 +84,7 @@ public class ViewExportSelection extends JDialog implements
 	 * @param colDelim column delimiter to be used as default
 	 */
 	public ViewExportSelection(Frame parent, LinkedList<Curve> input,
-			LinkedList<Curve> align, Curve cons, String colDelim) {
+			LinkedList<Curve> align, MicaData cons, String colDelim) {
 		/**
 		 * Set the filename to the window title.
 		 */
@@ -94,7 +95,7 @@ public class ViewExportSelection extends JDialog implements
 		 */
 		pset_input = input;
 		pset_align = align;
-		p_cons = cons;
+		p_cons = (cons == null) ? null : cons.consensus.getCurve();
 		/**
 		 * Create an instance of the selection table
 		 */
