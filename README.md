@@ -95,6 +95,66 @@ After using the `Import` button, the curves are loaded and directly depicted
 in the input plot area in the upper right of the GUI.
 
 
+### Inspection of curves to be aligned
+
+The interaction curve depiction in the upper right of the GUI represents
+
+- the curves's data points
+- the annotated and filtered landmarks (and their types)
+- details to selected points (upper information bar)
+- a drop-down selection of the highlighted curve (upper information bar)
+
+The highlighted curve (bold and all points represented) can be selected using the
+drop-down button in the upper information bar. Here, highlighting can also be disabled.
+
+The position of the legend box can be changed using the `Plot` menu from the menu bar.
+
+Using left mouse-click in the plot region selects the data point with an x-coordinate
+closest to the mouse position. Detailed point information like x,y coordinates and 
+annotation type are shown in the upper information bar.
+
+To reduce the number of depicted curves, select an according subset from within the 
+`Curve selection` list on the upper left of the GUI. Using the (pressed) `Ctrl`-key together with
+the mouse enables multi-selections.
+
+When single curves are selected, curve details like name, color, number of data 
+points etc. are visualized on the left within the `Curve information` area. 
+Here it is also possible to change some properties.
+
+The checkbox `Show consensus curve` within the upper information bar enables the
+generation and representation of a mean consensus profile of the input curves (after
+length normalization of all curves).
+
+
+### Landmark filtering
+
+The `Landmark filter` on the left allow to tune the filtering of the landmarks for
+*all* curves. Value changes are directly applied and the input curve representation
+on the upper right is instantly updated.
+
+*Extrema* (minima and maxima of the curves's y-coordinates) can be filter using the
+`Min. extrema difference` value. This value restricts the minimally allowed relative
+y-difference of an extremum to its neighbored extrema. The difference is normalized by
+the overall y-range of the curve. For filtering, the relative difference of all successive
+extrema of different type (max/min) is computed. The smallest difference below the
+threshold is identified and *both* extrema are removed from the list of available
+landmarks. Removing both is needed to preserve the alternation of extrema of different
+type. Furthermore, included inflection points are removed too. This procedure is
+repeated until the smallest relative extrema difference is above the threshold. This 
+filter is very useful to remove extrema annotations due to low amplitude noise.
+To remove all extrema from the landmark list, set the threshold to 1.
+
+*Inflection points* are filtered based on their relative slope. Given the `Min. 
+inflection height` value, all inflection points are removed from the available
+landmark list that show a normalized absolute slope value smaller than the given
+threshold. The normalization is done by the largest absolute slope value present
+within a curve. To remove all inflection points from the landmark list, set the
+threshold to 1.
+
+Larger numbers of landmarks result in longer runtimes of MICA, since all landmarks
+are potential alignment coordinates. Thus, it is useful to tune the filtering 
+parameters to gain (for most curves) a reasonably small selection of 
+extrema and inflection points for the alignment.
 
 
 
