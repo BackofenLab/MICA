@@ -687,7 +687,7 @@ public class MicaMainFrame extends JFrame implements ActionListener,
 		
 		JPanel panelFilter = new JPanel(new GridBagLayout());
 		panelFilter.setBorder(new TitledBorder(new EtchedBorder(),
-				"Point filter"));
+				"Landmark filter"));
 		gbc.gridx = GridBagConstraints.REMAINDER;
 		gbc.gridy = GridBagConstraints.RELATIVE;
 		gbc.weightx = 1;
