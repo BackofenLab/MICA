@@ -372,6 +372,7 @@ public class AnnotatedCurve extends Curve
 		if (y.length != annotation.length) throw new IllegalArgumentException("y and annotation differ in length");
 		if (y.length < 2) throw new IllegalArgumentException("length of y < 2");
 		
+		
 		// annotate rest from back to front
 		for( int i=annotation.length-2; i>0; i-- ) {
 			// going up (from back to front)
@@ -400,9 +401,9 @@ public class AnnotatedCurve extends Curve
 						}
 					}
 					// move i to end of checked interval
-					i = nextI;
+					i = nextI+1;
 				}
-			} else
+			} else {
 			// going down (from back to front)
 			if (y[i]<y[i+1]) {
 				// local minimum
@@ -429,8 +430,9 @@ public class AnnotatedCurve extends Curve
 						}
 					}
 					// move i to end of checked interval
-					i = nextI;
+					i = nextI+1;
 				}
+			}
 			}
 		}
 	}
