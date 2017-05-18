@@ -43,8 +43,66 @@ for the input.
 Required non-standard Java libraries are either included within the JAR file or part of the provided packages.
 
 
+
+
 <br /><br /><br /><br />
-## R-interface
+## Graphical user interface
+
+The graphical user interface (GUI) is organized in three parts (see Figure below). On the left, 
+curve data can be loaded, respective information like names or color can be altered, and the parameter setup
+for landmark filtering and MICA alignment computation is possible. 
+The (sub)set of selected curves (upper left corner) is printed in the upper right part of the
+window. Each curve is represented by its according color. After the computation of a
+curve alignment (start button on the lower left), the aligned curves are depicted in the
+lower right part of the GUI. In the following, the individual parts and possible settings
+are detailed while following a typical MICA workflow.
+
+![MICA GUI](/doc/MICA-GUI.png?raw=true "MICA graphical user interface")
+
+
+### Import/loading of curve data
+
+The MICA GUI currently supports only the import of equidistant curve data, 
+i.e. the difference between successive x-coordinates is equal between all
+data points. Thus, their distance is assumed to be 1. Furthermore, the 
+first x-coordinate is set to 1.
+The y-values for all curves are to be encoded columns-wise.
+
+Curve data can be loaded in CSV format (one curve per column) using either a
+
+- double-click at the curve selection field in the upper left corner or
+- using the `Import curves` button below.
+
+Both open a file dialog to select a CSV file to import data from.
+After file selection, an import preview dialog is opened. Therein, CSV
+specific parameters can be set, i.e.
+
+- whether or not column names (header information) is present, and
+- the field/column separator character to be used.
+
+As soon as the setup enables a parsing of the file, an according preview is
+presented to the user. An example is given below.
+
+![MICA GUI import dialog](/doc/MICA-GUI-import.png?raw=true "MICA GUI - data import")
+
+Here, the user can (de)select the column to be imported (checkbox in each column header).
+Furthermore, it is possible to automatically interpolate the data to a given number 
+of equidistant x-coordinates (checkbox "Enable len. corr." and according number of data 
+points in the field above). The y-value for the interpolated x-coordinates are derived
+via linear interpolation between the nearest enclosing original data points.
+
+After using the `Import` button, the curves are loaded and directly depicted
+in the input plot area in the upper right of the GUI.
+
+
+
+
+
+
+
+
+<br /><br /><br /><br />
+## R interface
 
 To use MICA from within R, the following steps are necessary:
 
