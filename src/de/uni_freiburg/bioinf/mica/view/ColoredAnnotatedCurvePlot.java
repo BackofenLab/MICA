@@ -24,6 +24,9 @@ import java.util.Locale;
 import java.util.Observable;
 import java.util.Observer;
 
+import javafx.beans.value.ChangeListener;
+import javafx.beans.value.ObservableValue;
+
 import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.SwingUtilities;
@@ -47,7 +50,7 @@ import de.uni_freiburg.bioinf.mica.controller.Debug;
  * 
  */
 public class ColoredAnnotatedCurvePlot extends JPanel implements MouseListener,
-		MouseMotionListener, MouseWheelListener, Observer {
+		MouseMotionListener, MouseWheelListener, Observer, ChangeListener<Number> {
 	
 	
 	private static final long serialVersionUID = 1L;
@@ -1631,5 +1634,9 @@ public class ColoredAnnotatedCurvePlot extends JPanel implements MouseListener,
 		}
 	}
 	
-	
+	@Override
+	public void changed(ObservableValue<? extends Number> observable, Number oldValue, Number newValue) {
+		this.repaint();
+	}
+
 }
