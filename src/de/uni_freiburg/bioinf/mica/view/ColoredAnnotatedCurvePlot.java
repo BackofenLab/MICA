@@ -55,7 +55,7 @@ public class ColoredAnnotatedCurvePlot extends JPanel implements MouseListener,
 	/**
 	 * Set which contains all profile data objects for plotting
 	 */
-	private LinkedList<ColoredAnnotatedCurve> curves = new LinkedList<ColoredAnnotatedCurve>();;
+	private LinkedList<ColoredAnnotatedCurve> curves = new LinkedList<ColoredAnnotatedCurve>();
 	/**
 	 * X boundaries of all curves
 	 */
