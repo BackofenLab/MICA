@@ -13,6 +13,10 @@ import de.uni_freiburg.bioinf.mica.algorithm.Curve;
  * 
  */
 public class ImportExport {
+	
+	//! defines what data of a curve is to be exported
+	public enum OutType { OutX, OutY, OutXY };
+	
 	/**
 	 * Is the file format specification.
 	 */
