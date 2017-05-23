@@ -183,11 +183,11 @@ public class ViewExportSelection extends JDialog implements
 	 */
 	private LinkedList<Curve> getProfilesForTable() {
 		LinkedList<Curve> set = new LinkedList<Curve>();
-		if (checkboxInput.isSelected())
+		if (checkboxInput.isSelected() && pset_input != null)
 			set.addAll(pset_input);
-		if (checkboxAlign.isSelected())
+		if (checkboxAlign.isSelected() && pset_align != null)
 			set.addAll(pset_align);
-		if (checkboxCons.isSelected())
+		if (checkboxCons.isSelected() && p_cons != null)
 			set.add(p_cons);
 		return set;
 	}
