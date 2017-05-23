@@ -713,13 +713,13 @@ public class GuiController implements MicaController, ISolutionDistributor {
 					+ file;
 		} else {
 			type = JOptionPane.WARNING_MESSAGE;
-			message = "Abortion! No curves selected or the user aborts the export.";
+			message = "Abortion! No curves selected or you aborted the export.";
 		}
 		/**
 		 * Show the user notification
 		 */
 		JOptionPane.showMessageDialog(null, message,
-				"Result export notification", type);
+				"Export notification", type);
 	}
 
 
