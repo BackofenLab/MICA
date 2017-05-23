@@ -53,6 +53,10 @@ public class CsvFactory {
 		
 		// print header
 		for (int c=0; c < curves.size(); c++) {
+			// skip curves without output
+			if (outPerCurve.get(c) == OutType.OutNone) {
+				continue;
+			}
 			// add delimiter
 			if (c > 0) {
 				output.write(delimiter);
@@ -69,7 +73,7 @@ public class CsvFactory {
 				output.write(delimiter);
 				output.write(curves.get(c).getName());
 				break;
-			default:
+			case OutNone:
 				break;
 			}
 		}
@@ -80,6 +84,10 @@ public class CsvFactory {
 		for (int i=0; i<maxLength; i++) {
 			// print each column
 			for (int c=0; c<curves.size(); c++) {
+				// skip curves without output
+				if (outPerCurve.get(c) == OutType.OutNone) {
+					continue;
+				}
 				// add delimiter prefix
 				if (c > 0) {
 					output.write(delimiter);
@@ -98,7 +106,7 @@ public class CsvFactory {
 						output.write(delimiter);
 						output.write(String.valueOf(curves.get(c).getY()[i]));
 						break;
-					default:
+					case OutNone:
 						break;
 					}
 				} else {
