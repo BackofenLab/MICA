@@ -30,6 +30,7 @@ public class CsvFactory {
 	 * @throws IOException in case there are problems with calling output.write()
 	 * 
 	 */
+	public
 	static
 	void
 	exportCSV(	Writer output
