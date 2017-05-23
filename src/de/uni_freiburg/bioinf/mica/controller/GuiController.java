@@ -1,5 +1,7 @@
 package de.uni_freiburg.bioinf.mica.controller;
 
+import java.io.BufferedWriter;
+import java.io.FileWriter;
 import java.util.LinkedList;
 import java.util.Observer;
 
@@ -14,14 +16,17 @@ import de.uni_freiburg.bioinf.mica.algorithm.Curve;
 import de.uni_freiburg.bioinf.mica.algorithm.CurveMeanAbsoluteDistance;
 import de.uni_freiburg.bioinf.mica.algorithm.DoubleRange;
 import de.uni_freiburg.bioinf.mica.algorithm.SlopeMeanAbsoluteDistance;
+import de.uni_freiburg.bioinf.mica.model.CsvFactory;
 import de.uni_freiburg.bioinf.mica.model.DuplicateProfileNameException;
 import de.uni_freiburg.bioinf.mica.model.FileFormatCsv;
 import de.uni_freiburg.bioinf.mica.model.ImportExport;
 import de.uni_freiburg.bioinf.mica.model.Model;
+import de.uni_freiburg.bioinf.mica.model.ImportExport.OutType;
 import de.uni_freiburg.bioinf.mica.view.ColoredAnnotatedCurve;
 import de.uni_freiburg.bioinf.mica.view.ColoredAnnotatedCurvePlot;
 import de.uni_freiburg.bioinf.mica.view.DoubleParameter;
 import de.uni_freiburg.bioinf.mica.view.MicaMainFrame;
+import de.uni_freiburg.bioinf.mica.view.ViewCsvExpSettings;
 import de.uni_freiburg.bioinf.mica.view.ViewExportSelection;
 import de.uni_freiburg.bioinf.mica.view.ViewParse;
 import de.uni_freiburg.bioinf.mica.view.ViewPngExpSettings.SourceType;
@@ -653,6 +658,77 @@ public class GuiController implements MicaController, ISolutionDistributor {
 		}
 		return true;
 	}
+//	
+//	/**
+//	 * Function to export the result to hard disk.
+//	 * 
+//	 * @param file
+//	 *            The file on the hard disk which contains the profile after
+//	 *            export.
+//	 */
+//	public void exportResult(String file) {
+//		/**
+//		 * Retrieve the alignment profiles from the model
+//		 */
+//		LinkedList<ColoredAnnotatedCurve> inputSet = model.getAvailableProfileData();
+//		LinkedList<ColoredAnnotatedCurve> resultSet = model.getAlignmentData();
+//		/**
+//		 * Separation sets for the export view
+//		 */
+//		LinkedList<Curve> input = null;
+//		LinkedList<Curve> alignment = null;
+//		/**
+//		 * Extract the profiles from the sets
+//		 */
+//		for (ColoredAnnotatedCurve cpd : inputSet) {
+//			if (input == null)
+//				input = new LinkedList<>();
+//			input.add(cpd.getCurve());
+//		}
+//		for (ColoredAnnotatedCurve cpd : resultSet) {
+//			if (alignment == null)
+//				alignment = new LinkedList<>();
+//			// Add all profiles from the mica result to the align set
+//			alignment.add(cpd.getCurve());
+//		}
+//		/**
+//		 * Attributes for the final user notification
+//		 */
+//		int type = JOptionPane.INFORMATION_MESSAGE;
+//		String message = "";
+//		/**
+//		 * Create the view for profiles selection for export
+//		 */
+//		ViewExportSelection ves = new ViewExportSelection(mainView, input,
+//				alignment, model.getAlignmentResult(),
+//				this.fileColumnSeparator);
+//		
+//		// show dialog and wait until it is closed again (invisible)
+//		ves.setVisible(true);
+//		
+//		/**
+//		 * Retrieve the selected profiles and export the set
+//		 */
+//		if (ves.getSelectedProfiles().size() > 0) {
+//			/**
+//			 * Update the delimiter for export by overwriting the old file
+//			 * format delimiter
+//			 */
+//			ie.setFileFormat(new FileFormatCsv(ves.getDelimiter()));
+//			ie.save(file, ves.getSelectedProfiles());
+//			message = "Successfully exported curves: "
+//					+ ves.getSelectedProfiles().size() + "\nFile: "
+//					+ file;
+//		} else {
+//			type = JOptionPane.WARNING_MESSAGE;
+//			message = "Abortion! No curves selected or export manually aborted.";
+//		}
+//		/**
+//		 * Show the user notification
+//		 */
+//		JOptionPane.showMessageDialog(null, message,
+//				"Export notification", type);
+//	}
 
 	/**
 	 * Function to export the result to hard disk.
@@ -662,64 +738,70 @@ public class GuiController implements MicaController, ISolutionDistributor {
 	 *            export.
 	 */
 	public void exportResult(String file) {
-		/**
-		 * Retrieve the alignment profiles from the model
-		 */
-		LinkedList<ColoredAnnotatedCurve> inputSet = model.getAvailableProfileData();
-		LinkedList<ColoredAnnotatedCurve> resultSet = model.getAlignmentData();
-		/**
-		 * Separation sets for the export view
-		 */
-		LinkedList<Curve> input = null;
-		LinkedList<Curve> alignment = null;
-		/**
-		 * Extract the profiles from the sets
-		 */
-		for (ColoredAnnotatedCurve cpd : inputSet) {
-			if (input == null)
-				input = new LinkedList<>();
-			input.add(cpd.getCurve());
+		
+		// create dialog to request final settings
+		ViewCsvExpSettings csvExpSettings = new ViewCsvExpSettings(
+													mainView
+													, model.getAlignmentResult() != null
+													, this.fileColumnSeparator.charAt(0) 
+													);
+		
+		// show dialog and wait until it is closed
+		csvExpSettings.setVisible(true);
+
+		// check if export aborted
+		if ( ! csvExpSettings.isAborted() )  {
+			
+			// write output
+			boolean exportSuccessful = true;
+			BufferedWriter output = null;
+			FileWriter outputFile = null;
+			try {
+				// collect data
+				LinkedList<Curve> curves = new LinkedList<>();
+				LinkedList<OutType> outPerCurve = new LinkedList<>();
+				
+				// add input curves
+				if (csvExpSettings.getOutTypeInput() != OutType.OutNone) {
+					for (ColoredAnnotatedCurve c : model.getAvailableProfileData()) {
+						curves.add( c.getCurve() );
+						outPerCurve.add( csvExpSettings.getOutTypeInput());
+					}
+				}
+				// add alignment curves
+				if (csvExpSettings.getOutTypeAlignment() != OutType.OutNone) {
+					for (ColoredAnnotatedCurve c : model.getAlignmentData()) {
+						curves.add( c.getCurve() );
+						outPerCurve.add( csvExpSettings.getOutTypeAlignment());
+					}
+				}
+				// add alignment consensus
+				if (csvExpSettings.getOutTypeAlignmentConsensus() != OutType.OutNone) {
+					curves.add( model.getAlignmentResult().consensus.getCurve() );
+					outPerCurve.add( csvExpSettings.getOutTypeAlignmentConsensus());
+				}
+				
+				// setup writer
+				outputFile = new FileWriter( file );
+				output = new BufferedWriter( outputFile );
+				// write data
+				CsvFactory.exportCSV( output, curves, outPerCurve, csvExpSettings.getDelimiter());
+				
+			} catch (Exception e) {
+				exportSuccessful = false;
+			}
+			// close writers
+			try { if (output != null) { output.close(); } } catch (Exception e) {}
+			try { if (outputFile != null) { outputFile.close(); } } catch (Exception e) {}
+			
+			
+			// create data for final export information
+			int type = exportSuccessful ? JOptionPane.INFORMATION_MESSAGE : JOptionPane.WARNING_MESSAGE;
+			String message = "CSV export to file " + file + ( exportSuccessful ? "completed." : "failed.");
+			// show export result message
+			JOptionPane.showMessageDialog(null, message, "Export notification", type);
 		}
-		for (ColoredAnnotatedCurve cpd : resultSet) {
-			if (alignment == null)
-				alignment = new LinkedList<>();
-			// Add all profiles from the mica result to the align set
-			alignment.add(cpd.getCurve());
-		}
-		/**
-		 * Attributes for the final user notification
-		 */
-		int type = JOptionPane.INFORMATION_MESSAGE;
-		String message = "";
-		/**
-		 * Create the view for profiles selection for export
-		 */
-		ViewExportSelection ves = new ViewExportSelection(mainView, input,
-										alignment, model.getAlignmentResult(),
-										this.fileColumnSeparator);
-		ves.setVisible(true);
-		/**
-		 * Retrieve the selected profiles and export the set
-		 */
-		if (ves.getSelectedProfiles().size() > 0) {
-			/**
-			 * Update the delimiter for export by overwriting the old file
-			 * format delimiter
-			 */
-			ie.setFileFormat(new FileFormatCsv(ves.getDelimiter()));
-			ie.save(file, ves.getSelectedProfiles());
-			message = "Successfully exported curves: "
-					+ ves.getSelectedProfiles().size() + "\nFile: "
-					+ file;
-		} else {
-			type = JOptionPane.WARNING_MESSAGE;
-			message = "Abortion! No curves selected or export manually aborted.";
-		}
-		/**
-		 * Show the user notification
-		 */
-		JOptionPane.showMessageDialog(null, message,
-				"Export notification", type);
+		
 	}
 
 
