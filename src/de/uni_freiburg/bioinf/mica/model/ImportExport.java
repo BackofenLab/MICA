@@ -64,6 +64,9 @@ public class ImportExport {
 	 *         during the import step.
 	 */
 	public Curve load(String file, int col, boolean hdr) {
+		if (f == null) {
+			throw new RuntimeException("ImportExport.save() : no file format defined so far!");
+		}
 		Curve p = f.load(file, col, hdr);
 		return p;
 	}
@@ -76,6 +79,9 @@ public class ImportExport {
 	 * @return The number of columns.
 	 */
 	public int getNumberOfColumns(String file) {
+		if (f == null) {
+			throw new RuntimeException("ImportExport.save() : no file format defined so far!");
+		}
 		return f.getNumberCols(file);
 	}
 
@@ -90,6 +96,9 @@ public class ImportExport {
 	 *            Is the profile for the export step.
 	 */
 	public void save(String file, LinkedList<Curve> pset) {
+		if (f == null) {
+			throw new RuntimeException("ImportExport.save() : no file format defined so far!");
+		}
 		f.save(file, pset);
 	}
 
