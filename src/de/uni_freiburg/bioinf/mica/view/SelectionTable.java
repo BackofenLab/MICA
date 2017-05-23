@@ -39,13 +39,15 @@ public class SelectionTable extends JPanel implements MouseListener,
 	private LinkedList<ChechBoxTableHdrRenderer> hdrRenderer = null;
 	private JScrollPane sp = null;
 	private ISelectedProfilesListener selectionListener = null;
+	
+	//! the set of curves currently visualized
+	protected LinkedList<Curve> visualizedProfileSet = null;
 
 	/**
 	 * Constructor which init the layout to grid layout with one element.
 	 */
 	public SelectionTable() {
 		super(new GridLayout(1, 1));
-		selectionListener = null;
 	}
 
 	/**
@@ -69,6 +71,10 @@ public class SelectionTable extends JPanel implements MouseListener,
 	 *            The set of profiles
 	 */
 	public void initModel(LinkedList<Curve> profileSet) {
+		
+		//! store set for later access
+		visualizedProfileSet = profileSet;
+		
 		/**
 		 * Determine the maximum number of needed rows.
 		 */
@@ -95,6 +101,14 @@ public class SelectionTable extends JPanel implements MouseListener,
 		}
 
 		initModel(hdr, data);
+	}
+
+	/**
+	 * Access to the currently visualized set of curves
+	 * @return the visualized set of curves
+	 */
+	public LinkedList<Curve> getVisualizedProfileSet() {
+		return visualizedProfileSet;
 	}
 
 	/**
