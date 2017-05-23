@@ -37,6 +37,7 @@ import de.uni_freiburg.bioinf.mica.algorithm.MICA.MicaData;
 public class ViewExportSelection extends JDialog implements
 		ISelectedProfilesListener, ActionListener {
 	private static final long serialVersionUID = 1L;
+	
 	/**
 	 * Input set of available profiles for export
 	 */
@@ -107,9 +108,9 @@ public class ViewExportSelection extends JDialog implements
 		/**
 		 * Instances for the check boxes
 		 */
-		checkboxInput = new JCheckBox("Input");
-		checkboxAlign = new JCheckBox("Alignment");
-		checkboxCons = new JCheckBox("Consensus");
+		checkboxInput = new JCheckBox("Input (Y)");
+		checkboxAlign = new JCheckBox("Alignment (X)");
+		checkboxCons = new JCheckBox("Consensus (X,Y)");
 		/**
 		 * Instances for the delimiter
 		 */
@@ -155,10 +156,13 @@ public class ViewExportSelection extends JDialog implements
 	 * Function displays the initial selection from the check boxes
 	 */
 	private void displayInitialSelection() {
-		/**
-		 * Get the profiles from the check box group selection for the table
-		 */
-		LinkedList<Curve> set = getProfilesForTable();
+		LinkedList<Curve> set = new LinkedList<Curve>();
+		if (checkboxInput.isSelected() && pset_input != null)
+			set.addAll(pset_input);
+		if (checkboxAlign.isSelected() && pset_align != null)
+			set.addAll(pset_align);
+		if (checkboxCons.isSelected() && p_cons != null)
+			set.add(p_cons);
 		/**
 		 * Update the number of profiles
 		 */
@@ -167,24 +171,6 @@ public class ViewExportSelection extends JDialog implements
 		 * Init the table model with the profiles set
 		 */
 		selTable.initModel(set);
-	}
-
-	/**
-	 * Function which collects according to the check box selection (input,
-	 * alignment, consensus) all required profiles and store them into a set for
-	 * the table
-	 * 
-	 * @return The set of the collected profiles
-	 */
-	private LinkedList<Curve> getProfilesForTable() {
-		LinkedList<Curve> set = new LinkedList<Curve>();
-		if (checkboxInput.isSelected() && pset_input != null)
-			set.addAll(pset_input);
-		if (checkboxAlign.isSelected() && pset_align != null)
-			set.addAll(pset_align);
-		if (checkboxCons.isSelected() && p_cons != null)
-			set.add(p_cons);
-		return set;
 	}
 
 	/**
@@ -297,7 +283,7 @@ public class ViewExportSelection extends JDialog implements
 		 * Create instance of the set for export
 		 */
 		LinkedList<Curve> selectedProfiles = new LinkedList<Curve>();
-		LinkedList<Curve> pset = getProfilesForTable();
+		LinkedList<Curve> pset = selTable.getVisualizedProfileSet();
 		/**
 		 * Over all available profiles
 		 */
