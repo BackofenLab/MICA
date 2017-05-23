@@ -34,11 +34,11 @@ for the input.
 ## Dependencies
 
 - MICA tool :
-  - Java-8
-- MICA R-interface :
-  - Java-8
+  - Java-8 e.g. from [Oracle](http://www.oracle.com/technetwork/java/javase/downloads/index.html)
+- MICA `R`-interface :
+  - Java-8 e.g. from [Oracle](http://www.oracle.com/technetwork/java/javase/downloads/index.html)
   - `R` (tested with version 3.3.0)
-  - [`rJava`](https://www.rforge.net/rJava/) - R package to interface Java runtime (tested with version 0.9-8)
+  - [`rJava`](https://www.rforge.net/rJava/) - `R` package to interface Java runtime (tested with version 0.9-8)
   
 Required non-standard Java libraries are either included within the JAR file or part of the provided packages.
 
@@ -65,7 +65,9 @@ are detailed while following a typical MICA workflow.
 The MICA GUI currently supports only the import of equidistant curve data, 
 i.e. the difference between successive x-coordinates is equal between all
 data points. Thus, their distance is assumed to be 1. Furthermore, the 
-first x-coordinate is set to 0.
+first x-coordinate is set to 0. We are currently working on the import of
+explicit x-coordinate data for the GUI. Full data point support is available
+via the [R interface](#Rinterface).
 The y-values for all curves are to be encoded columns-wise.
 
 Curve data can be loaded in CSV format (one curve per column) either
@@ -161,11 +163,12 @@ extrema and inflection points for the alignment.
 
 
 
+<a name="Rinterface" />
 
 <br /><br /><br /><br />
-## R interface
+## `R` interface
 
-To use MICA from within R, the following steps are necessary:
+To use MICA from within `R`, the following steps are necessary:
 
 - install on your machine JRE or JDK version 8 or higher (Java SE Development Kit) e.g. from [Oracle](http://www.oracle.com/technetwork/java/javase/downloads/index.html)
 - install [`rJava`](https://www.rforge.net/rJava/) (e.g. using `install.packages("rJava");` within `R`)
@@ -175,23 +178,27 @@ To use MICA from within R, the following steps are necessary:
      - for JRE : add e.g. `C:\Program Files (x86)\Java\jre1.8.0_91\bin\server` at the end of the value
      - for JDK : add e.g. `C:\Program Files\Java\jdk1.8.0_92\jre\bin\server` at the end of the value
      - note: use `;` as a path separator and adapt the pathes from above! :-)
-- download and extract the MICA R-package from the [release page](https://github.com/BackofenLab/MICA/releases)
-- load the MICA R functions using `source("PATH_TO_MICA_R_PACKAGE/mica-functions.R");` from within `R`
+- download and extract the MICA `R`-package from the [release page](https://github.com/BackofenLab/MICA/releases)
+- load the MICA `R` functions using `source("PATH_TO_MICA_R_PACKAGE/mica-functions.R");` from within `R`
 
 ### Quick Start
 
 ```[R]
 # fill matrix/dataframe of (equidistant) data to be aligned (columnwise)
-curves <- read.csv(...);
+curvesY <- read.csv(...);
 
 # include the MICA R interface utility function script
 source("PATH_TO_MICA_R_PACKAGE/mica-functions.R")
 
-# align curves using MICA
-alignment <- alignCurves( y=curves );
+# align curves using MICA (equidistance x-coordinates generated)
+alignment <- alignCurves( y=curvesY );
 
 # plot aligned data
 matplot( x=alignment$x, y=curves, type="l" );
+
+# or if x-coordinates are available
+curvesX <- read.csv(...);
+alignment <- alignCurves( x=curvesX, y=curvesY );
 
 ```
 
@@ -212,7 +219,7 @@ and their parameters detailed.
 - [`getMeanCurve(..)`](#getMeanCurve) : computes the mean curve for a given number of equidistant x coordinates
 
 
-- [`initMica(..)`](#initMica) : initializes the MICA R interface
+- [`initMica(..)`](#initMica) : initializes the MICA `R` interface
 
 
 <a name="alignCurves" />
