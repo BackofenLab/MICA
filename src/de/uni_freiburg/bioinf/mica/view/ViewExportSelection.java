@@ -126,21 +126,16 @@ public class ViewExportSelection extends JDialog implements
 		/**
 		 * Disable the check boxes if the corresponding input is not available
 		 */
-		if (pset_input == null)
-			checkboxInput.setEnabled(false);
-		if (pset_align == null)
-			checkboxAlign.setEnabled(false);
-		if (p_cons == null)
-			checkboxCons.setEnabled(false);
+		checkboxInput.setEnabled(pset_input != null);
+		checkboxAlign.setEnabled(pset_align != null);
+		checkboxCons.setEnabled(p_cons != null);
+		
 		/**
 		 * Enable all per default
 		 */
-		if (pset_input != null)
-			checkboxInput.setSelected(true);
-		if (pset_align != null)
-			checkboxAlign.setSelected(true);
-		if (p_cons != null)
-			checkboxCons.setSelected(true);
+		checkboxInput.setSelected(pset_input != null);
+		checkboxAlign.setSelected(pset_align != null);
+		checkboxCons.setSelected(p_cons != null);
 
 		/**
 		 * Add listeners to the view components
