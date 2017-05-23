@@ -708,12 +708,12 @@ public class GuiController implements MicaController, ISolutionDistributor {
 			 */
 			ie.setFileFormat(new FileFormatCsv(ves.getDelimiter()));
 			ie.save(file, ves.getSelectedProfiles());
-			message = "Successful exported curves: "
-					+ ves.getSelectedProfiles().size() + "\nDestination: "
+			message = "Successfully exported curves: "
+					+ ves.getSelectedProfiles().size() + "\nFile: "
 					+ file;
 		} else {
 			type = JOptionPane.WARNING_MESSAGE;
-			message = "Abortion! No curves selected or you aborted the export.";
+			message = "Abortion! No curves selected or export manually aborted.";
 		}
 		/**
 		 * Show the user notification
