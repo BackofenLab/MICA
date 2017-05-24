@@ -550,6 +550,7 @@ no GUI is started but directly an alignment is computed using the provided param
 The available commandline parameters are:
 
 - `--curves` <STRING> : 
+
   Optional file name of the CSV file holding the curves to be align 
   (`--csvDelim` separated columns and equidistant x-coordinates assumed).
   If present, the alignment will be computed and written to `--output`.
