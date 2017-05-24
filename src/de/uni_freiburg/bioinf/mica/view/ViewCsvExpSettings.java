@@ -6,30 +6,25 @@ import java.awt.Frame;
 import java.awt.GridBagConstraints;
 import java.awt.GridBagLayout;
 import java.awt.GridLayout;
+import java.awt.Insets;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.WindowAdapter;
 import java.awt.event.WindowEvent;
-import java.util.LinkedList;
 
 import javax.swing.ButtonGroup;
 import javax.swing.JButton;
-import javax.swing.JCheckBox;
 import javax.swing.JDialog;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.JRadioButton;
 import javax.swing.JTextField;
-import javax.swing.border.EtchedBorder;
-import javax.swing.border.TitledBorder;
 import javax.swing.text.AttributeSet;
 import javax.swing.text.BadLocationException;
 import javax.swing.text.Document;
 import javax.swing.text.PlainDocument;
 
-import de.uni_freiburg.bioinf.mica.algorithm.Curve;
-import de.uni_freiburg.bioinf.mica.algorithm.MICA.MicaData;
 import de.uni_freiburg.bioinf.mica.model.ImportExport;
 import de.uni_freiburg.bioinf.mica.model.ImportExport.OutType;
 
@@ -122,6 +117,17 @@ public class ViewCsvExpSettings extends JDialog
 			return OutType.OutNone;
 		}
 		
+		/**
+		 * Dis-/enables also the displayed buttons.
+		 */
+		@Override
+		public void setEnabled(boolean enabled) {
+			super.setEnabled(enabled);
+			outX.setEnabled(enabled);
+			outY.setEnabled(enabled);
+			outXY.setEnabled(enabled);
+			outNone.setEnabled(enabled);
+		}
 	}
 	
 	/**
@@ -139,7 +145,7 @@ public class ViewCsvExpSettings extends JDialog
 		 * systems and ',' otherwise.
 		 */
 		public DelimiterField() {
-			super( System.getProperty("user.language").equalsIgnoreCase("de") ? ";" : ",");
+			super( System.getProperty("user.language").equalsIgnoreCase("de") ? ";" : ",",2);
 		}
 
 		/**
@@ -186,7 +192,6 @@ public class ViewCsvExpSettings extends JDialog
 	
 	//! Input field for delimiter value
 	private DelimiterField textfieldDelimiter = new DelimiterField();
-	
 	
 	//! Button to confirm the export
 	private JButton buttonExport = new JButton("Export CSV file");
@@ -238,7 +243,7 @@ public class ViewCsvExpSettings extends JDialog
 		
 		// Set the properties of this frame.
 		this.setDefaultCloseOperation(JFrame.HIDE_ON_CLOSE);
-		this.setMinimumSize(new Dimension(300, 300));
+		this.setMinimumSize(new Dimension(400, 150));
 		this.setLocationRelativeTo(null);
 		
 		// Add listener if the user closes the window with the [x]
@@ -252,23 +257,59 @@ public class ViewCsvExpSettings extends JDialog
 
 		// set layout
 		Container c = this.getContentPane();
-		c.setLayout(new GridLayout(5, 2));
+		c.setLayout(new GridBagLayout());
 		
+		JPanel curPanel = new JPanel( new GridBagLayout() );
+		// layout setup panel 
+		GridBagConstraints gbcLabel = new GridBagConstraints(
+				GridBagConstraints.RELATIVE
+				, GridBagConstraints.RELATIVE
+				, 1
+				, 1
+				, 0.3, 0.0
+				, GridBagConstraints.CENTER
+				, GridBagConstraints.HORIZONTAL
+				, new Insets(0, 0, 0, 0), 0, 0);
+		GridBagConstraints gbcInput = new GridBagConstraints(
+				GridBagConstraints.RELATIVE
+				, GridBagConstraints.RELATIVE
+				, GridBagConstraints.REMAINDER
+				, 1
+				, 0.7, 0.0
+				, GridBagConstraints.WEST
+				, GridBagConstraints.NONE
+				, new Insets(0, 10, 0, 0), 0, 0);
 		// delimiter
-		c.add( new JLabel("Column delimiter:", JLabel.RIGHT) );
-		c.add( textfieldDelimiter );
+		curPanel.add( new JLabel("Column delimiter:", JLabel.RIGHT), gbcLabel );
+		curPanel.add( textfieldDelimiter, gbcInput );
 		
 		// output type selection
-		c.add( new JLabel("Input curves:", JLabel.RIGHT) );
-		c.add( inputOutTypeSelection );
-		c.add( new JLabel("Alignment curves:", JLabel.RIGHT) );
-		c.add( alignmentOutTypeSelection );
-		c.add( new JLabel("Alignment consensus:", JLabel.RIGHT) );
-		c.add( alignmentConsensusOutTypeSelection );
+		curPanel.add( new JLabel("Input curves:", JLabel.RIGHT), gbcLabel );
+		curPanel.add( inputOutTypeSelection, gbcInput );
+		curPanel.add( new JLabel("Alignment curves:", JLabel.RIGHT), gbcLabel );
+		curPanel.add( alignmentOutTypeSelection, gbcInput );
+		curPanel.add( new JLabel("Alignment consensus:", JLabel.RIGHT), gbcLabel );
+		curPanel.add( alignmentConsensusOutTypeSelection, gbcInput );
 		
+		// add panel to dialog
+		c.add( curPanel, new GridBagConstraints(1, 1, 1, 1, 1.0, 1.0
+								, GridBagConstraints.CENTER
+								, GridBagConstraints.BOTH
+								, new Insets(0, 0, 0, 0), 0, 0) );
+		
+		// layout button panel 
+		curPanel = new JPanel( new GridBagLayout() );
 		// buttons 
-		c.add( buttonExport );
-		c.add( buttonAbort );
+		curPanel.add( buttonExport );
+		curPanel.add( buttonAbort );
+		// add panel to dialog
+		c.add( curPanel, new GridBagConstraints(1, 2, 1, 1, 1.0, 0.0
+								, GridBagConstraints.CENTER
+								, GridBagConstraints.HORIZONTAL
+								, new Insets(0, 0, 0, 0), 0, 0) );
+		
+		// trigger layouting of components
+		this.validate();
 		
 	}
 	
