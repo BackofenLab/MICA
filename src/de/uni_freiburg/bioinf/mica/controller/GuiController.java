@@ -721,7 +721,11 @@ public class GuiController implements MicaController, ISolutionDistributor {
 					}
 					// add alignment consensus
 					if (csvExpSettings.getOutTypeAlignmentConsensus() != OutType.OutNone) {
-						curves.add( model.getAlignmentResult().consensus.getCurve() );
+						// create curve copy to enable renaming
+						curves.add( new Curve( "consensus"
+								, model.getAlignmentResult().consensus.getCurve().getX()
+								, model.getAlignmentResult().consensus.getCurve().getY()
+								));
 						outPerCurve.add( csvExpSettings.getOutTypeAlignmentConsensus());
 					}
 					
