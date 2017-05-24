@@ -1081,39 +1081,6 @@ public class MICA {
 	}
 	
 	
-	public static IntervalDecomposition getConsensusCurve( LinkedList< AnnotatedCurve > curves ) {
-		// get mean information
-		double meanLength = curves.stream().mapToDouble( c -> c.length() ).sum() / (double)curves.size();
-		double meanStart = curves.stream().mapToDouble( c -> c.getXmin() ).sum() / (double)curves.size();
-		// compile 
-		LinkedList<IntervalDecomposition> decomp = new LinkedList<>();
-		for ( int p=0; p<curves.size(); p++ ) {
-			// get current curve
-			AnnotatedCurve c = curves.get(p);
-			// construct new x-coordinates
-			double[] newX = new double[c.size()];
-			// newX = (oldX-oldStart)/oldLength*newLength + newStart
-			IntStream.range(0, newX.length).forEach( i -> newX[i] = (c.getX()[i] - c.getXmin())/c.length()*meanLength + meanStart );
-			// copy former curve
-			AnnotatedCurve curveCopy = new AnnotatedCurve(c.getName(), newX, c.getY(), c.getAnnotation());
-			// add filters
-			c.getAnnotationFilter().stream().forEachOrdered( f -> curveCopy.addAnnotationFilter(f) );
-			// add as an initial decomposition
-			decomp.add( new IntervalDecomposition( curveCopy ));
-		}
-		// get consensus
-		IntervalDecomposition consDecomp = MICA.getConsensusCurve( decomp );
-		AnnotatedCurve cons = consDecomp.getCurveOriginal();
-		// overwrite annotations
-		for (int i=1; i+1<cons.size(); i++) {
-			cons.getAnnotation()[i] = CurveAnnotation.Type.IS_POINT;
-		}
-		cons.resetFilteredAnnotations();
-		cons.setName("consensus");
-		
-		return consDecomp;
-
-	}
 
 	
 }
