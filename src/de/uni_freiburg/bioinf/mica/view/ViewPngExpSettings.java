@@ -80,7 +80,7 @@ public class ViewPngExpSettings extends JDialog implements ActionListener {
 	 * 
 	 * @param parent
 	 */
-	public ViewPngExpSettings(Frame parent) {
+	public ViewPngExpSettings(Frame parent, boolean alignmentAvailable) {
 		/**
 		 * Mode less dialog
 		 */
@@ -114,7 +114,17 @@ public class ViewPngExpSettings extends JDialog implements ActionListener {
 		bgroupSource.add(radioButtonInput);
 		bgroupSource.add(radioButtonAlignment);
 		bgroupSource.add(radioButtonAlignCons);
-		radioButtonAlignCons.setSelected(true);
+		
+		if (alignmentAvailable) {
+			// preselect alignment export
+			radioButtonAlignCons.setSelected(true);
+		} else {
+			// preselect input export
+			radioButtonInput.setSelected(true);
+			// disable alignment export
+			radioButtonAlignment.setEnabled(false);
+			radioButtonAlignCons.setEnabled(false);
+		}
 
 		/**
 		 * Create a button group for the radio buttons

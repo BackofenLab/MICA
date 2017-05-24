@@ -6,7 +6,6 @@ import java.awt.Dimension;
 import java.awt.FileDialog;
 import java.awt.Font;
 import java.awt.Frame;
-import java.awt.Graphics;
 import java.awt.GridBagConstraints;
 import java.awt.GridBagLayout;
 import java.awt.GridLayout;
@@ -20,10 +19,8 @@ import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
 import java.awt.event.WindowAdapter;
 import java.awt.event.WindowEvent;
-import java.awt.image.BufferedImage;
 import java.beans.PropertyChangeEvent;
 import java.beans.PropertyChangeListener;
-import java.io.File;
 import java.text.DecimalFormat;
 import java.text.DecimalFormatSymbols;
 import java.util.LinkedList;
@@ -32,7 +29,6 @@ import java.util.Observable;
 import java.util.Observer;
 import java.util.stream.IntStream;
 
-import javax.imageio.ImageIO;
 import javax.swing.BorderFactory;
 import javax.swing.ButtonGroup;
 import javax.swing.DefaultListModel;
@@ -73,6 +69,7 @@ import de.uni_freiburg.bioinf.mica.controller.Debug;
 import de.uni_freiburg.bioinf.mica.controller.GuiController;
 import de.uni_freiburg.bioinf.mica.controller.MicaController;
 import de.uni_freiburg.bioinf.mica.model.Model;
+import de.uni_freiburg.bioinf.mica.view.ColoredAnnotatedCurvePlot.LegendPos;
 
 /**
  * Main view of the MICA algorithm. This view represents the initial view. Here
@@ -1348,77 +1345,17 @@ public class MicaMainFrame extends JFrame implements ActionListener,
 				profilePlotOut.setBackgroundColor(newcolor);
 			}
 		} else if (e.getSource() == menuitemExportPng) {
-			/**
-			 * Show the view for selecting the picture size and the file name.
-			 */
-			ViewPngExpSettings viewPngExp = new ViewPngExpSettings(this);
-			viewPngExp.setVisible(true);
-			Dimension expDim = viewPngExp.getPictureExportSize();
-			File pictureFile = viewPngExp.getPictureExportFilepath();
-			/**
-			 * Create the plot with the desired curves for the picture
-			 */
-			ColoredAnnotatedCurvePlot plotForPic = controller
-					.createPlotForPicture(viewPngExp.getSourceTypeSelection());
-			/**
-			 * Set the background color
-			 */
-			plotForPic.setBackgroundColor(profilePlotOut.getBackgroundColor());
-			/**
-			 * Set the legend pox position
-			 */
-			ColoredAnnotatedCurvePlot.LegendPos lpos = ColoredAnnotatedCurvePlot.LegendPos.HIDDEN;
-			if (!menuitemLegBoxCenter.isEnabled())
-				lpos = ColoredAnnotatedCurvePlot.LegendPos.CENTER;
-			if (!menuitemLegBoxRight.isEnabled())
-				lpos = ColoredAnnotatedCurvePlot.LegendPos.RIGHT;
-			if (!menuitemLegBoxLeft.isEnabled())
-				lpos = ColoredAnnotatedCurvePlot.LegendPos.LEFT;
-			plotForPic.setLegendPosition(lpos);
-			/**
-			 * Check if a dimension is available (only if the user clicks on the
-			 * save button in the png export view)
-			 */
-			if (expDim != null) {
-				/**
-				 * Create the image buffer
-				 */
-				plotForPic.setSize(expDim);
-				BufferedImage bi = new BufferedImage(
-						plotForPic.getSize().width,
-						plotForPic.getSize().height,
-						BufferedImage.TYPE_INT_ARGB);
-				Graphics g = bi.createGraphics();
-				plotForPic.paint(g);
-				g.dispose();
-
-				/**
-				 * Write the picture into the file.
-				 */
-				if (pictureFile != null) {
-					/**
-					 * Export PNG file
-					 */
-					String infoMsg = null;
-					try {
-						ImageIO.write(bi, "png", pictureFile);
-						infoMsg = new String("Picture sucessfully saved to\n");
-
-					} catch (Exception ex) {
-						ex.printStackTrace();
-						infoMsg = new String("Can not store picture to\n");
-					}
-					/**
-					 * Create information message to confirm the success.
-					 */
-					infoMsg += pictureFile.getAbsoluteFile()
-							+ "\nwith resolution " + (int) expDim.getWidth()
-							+ "x" + (int) expDim.getHeight();
-					JOptionPane.setDefaultLocale(Locale.ENGLISH);
-					JOptionPane.showMessageDialog(null, infoMsg, "Export info",
-							JOptionPane.INFORMATION_MESSAGE);
-				}
-			}
+			
+			// get position of legend within plots
+			LegendPos lpos = LegendPos.LEFT;
+			if (menuitemLegBoxLeft.isSelected()) { lpos = LegendPos.LEFT; }
+			if (menuitemLegBoxCenter.isSelected()) { lpos = LegendPos.CENTER; }
+			if (menuitemLegBoxRight.isSelected()) { lpos = LegendPos.RIGHT; }
+			if (menuitemLegBoxHidden.isSelected()) { lpos = LegendPos.HIDDEN; }
+			
+			// trigger PNG export
+			controller.exportPng( lpos );
+			
 		} else if (e.getSource() == buttonPInfColor) {
 			/**
 			 * Retrieve the color from the dialog
