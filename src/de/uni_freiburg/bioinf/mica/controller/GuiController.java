@@ -659,6 +659,14 @@ public class GuiController implements MicaController, ISolutionDistributor {
 	 */
 	public void exportCsv() {
 		
+		// check if already something available for export
+		if (model.getAvailableProfileData() == null || model.getAvailableProfileData().isEmpty()) {
+			// show information
+			JOptionPane.showMessageDialog(null, "No curves available.", "Export notification", JOptionPane.INFORMATION_MESSAGE);
+			// stop further export
+			return;
+		}
+		
 		// create dialog to request final settings
 		ViewCsvExpSettings csvExpSettings = new ViewCsvExpSettings(
 													mainView
@@ -733,7 +741,7 @@ public class GuiController implements MicaController, ISolutionDistributor {
 				
 				// create data for final export information
 				int type = exportSuccessful ? JOptionPane.INFORMATION_MESSAGE : JOptionPane.WARNING_MESSAGE;
-				String message = "CSV export to file " + csvFileName + ( exportSuccessful ? "completed." : "failed.");
+				String message = "CSV export to file " + csvFileName + ( exportSuccessful ? " completed." : " failed.");
 				// show export result message
 				JOptionPane.showMessageDialog(null, message, "Export notification", type);
 			}
