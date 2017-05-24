@@ -31,6 +31,18 @@ of all curves. The according consensus curve yields thus the representative cons
 for the input.
 
 
+## Overview
+
+- [Dependencies](#dependencies)
+- [Graphical user interface](#GUI)
+- [R interface](#RI)
+- [Command line interface](#CLI)
+
+
+
+
+
+
 ## Dependencies
 
 - MICA tool :
@@ -44,6 +56,10 @@ Required non-standard Java libraries are either included within the JAR file or 
 
 
 
+
+
+
+<a name="GUI" />
 
 <br /><br /><br /><br />
 ## Graphical user interface
@@ -60,6 +76,8 @@ are detailed while following a typical MICA workflow.
 ![MICA GUI](/doc/MICA-GUI.png?raw=true "MICA graphical user interface")
 
 
+<a name="MICAinput" />
+
 ### Import/loading of curve data
 
 The MICA GUI currently supports only the import of equidistant curve data, 
@@ -67,7 +85,7 @@ i.e. the difference between successive x-coordinates is equal between all
 data points. Thus, their distance is assumed to be 1. Furthermore, the 
 first x-coordinate is set to 0. We are currently working on the import of
 explicit x-coordinate data for the GUI. Full data point support is e.g. available
-via the [R interface](#Rinterface).
+via the [R interface](#RI).
 The y-values for all curves are to be encoded columns-wise.
 
 Curve data can be loaded in CSV format (one curve per column) either
@@ -138,6 +156,8 @@ The curve depiction is interactive, i.e. you can:
 - scroll left/right (when zoomed in) with the mouse wheel
 
 
+<a name="landmarkFiltering" />
+
 ### Landmark filtering
 
 The `Landmark filter` on the left allow to tune the filtering of the landmarks for
@@ -169,6 +189,8 @@ parameters to gain (for most curves) a reasonably small selection of
 extrema and inflection points for the alignment.
 
 
+<a name="MICAparams" />
+
 ### Alignment parameters and constraints
 
 The `Alignment setup` section defines the parameterization of the MICA workflow.
@@ -187,7 +209,7 @@ In the following, we will detail the constraint available within the GUI:
   for further decomposition. The value defines the minimal relative length, i.e. it has to 
   hold `(length/curveLength) >= value`.
 - `Max. warping factor` constrains the maximally allowed length distortion of an interval, 
-  i.e. it has to hold `(max{newLength,oldLength}/min{newLength,oldLength}) <= value`.
+  i.e. it has to hold `max{newLength/oldLength, oldLength/newLength} <= value`.
 - `Max. rel. x-shift` restricts how far an x-coordinate can be shifted, i.e. it has to hold
   `(abs(oldX-newX)/curveLength) <= value`. 
 
@@ -248,10 +270,10 @@ After selection, the target file has to be specified via the subsequent file dia
 
 
 
-<a name="Rinterface" />
+<a name="RI" />
 
 <br /><br /><br /><br />
-## `R` interface
+## R interface
 
 To use MICA from within `R`, the following steps are necessary:
 
@@ -507,6 +529,67 @@ with the according MICA jar file path to enable the correct `rJava` initializati
 *Input parameters:* 
 
 - `micaJavaPath` : the absolute path to the MICA jar files (string)
+
+
+
+
+
+
+
+
+<a name="CLI" />
+
+<br /><br /><br /><br />
+## Commandline interface
+
+The MICA software offers beside its [Graphical user interface (GUI)](#GUI) also a Commandline interface (CLI)
+for the use of MICA in automated processing pipelines. To enable the CLI, you have to run MICA while using 
+the `--curves` parameter with an according input file (see details below). If this parameter is provided,
+no GUI is started but directly an alignment is computed using the provided parameters.
+
+The available commandline parameters are:
+
+- `--curves` <STRING> : 
+  Optional file name of the CSV file holding the curves to be align 
+  (`--csvDelim` separated columns and equidistant x-coordinates assumed).
+  If present, the alignment will be computed and written to `--output`.
+  If absent, the graphical user interface is started.
+  See [MICA input](#MICAinput).
+- `--csvDelim` <CHAR> : (default ';') 
+  The column deliminator to be used for CSV parsing and writing.
+- `--csvNoHeader` : 
+  If given, CSV files are parsed and written WITHOUT column headers.
+- `--output` <STRING> : 
+  Optional file name of the CSV file the new x-coordinates for each aligned y-coordinate is written to. 
+  If not provided, the alignment is written to the standard output stream.
+- `--filterExtrema` <DOUBLE> : (default 0.01)
+  Minimal difference of neighbored extrema (relative scale in range [0,1]) to be considered for alignment.
+  See [landmark filtering](#landmarkFiltering).
+- `--filterInflect` <DOUBLE> : (default 0.01)
+  Minimal absolute slope of an inflection point (relative scale in range [0,1]) to be considered for alignment.
+  See [landmark filtering](#landmarkFiltering).
+- `--distBase` <SLOPE|Y_DATA> : (default SLOPE)
+  The values on what to compute the distance function. 
+  See [MICA parameters](#MICAparams).
+- `--distSamples` <INTEGER> : (default 100)
+  The number of equidistant x-coordinates to be used for distance calculation. 
+  See [MICA parameters](#MICAparams).
+- `--alnMinLength` <DOUBLE> : (default 0.05)
+  Minimal relative length of an interval to be considered for further decomposition (range [0,1]). 
+  See [MICA parameters](#MICAparams).
+- `--alnMaxWarp` <DOUBLE> : (default 2.0)
+  Maximal interval length warping factor (i.e. max{old/new, new/old}) (range [0,1]). 
+  See [MICA parameters](#MICAparams).
+- `--alnMaxShift` <DOUBLE> : (default 0.2)
+  Maximal allowed relative x-coordinate shift per alignment (range [0,1]). 
+  See [MICA parameters](#MICAparams).
+- `--alnReference` <INTEGER> : 
+  Optional column index (>=1) of the curve to designate as reference for the alignment. 
+  See [MICA parameters](#MICAparams).
+- `-h`, `-?`, `--help` : 
+  Show available parameters and defaults.
+- `-v`, `--version` : 
+  Show MICA version information.
 
 
 
