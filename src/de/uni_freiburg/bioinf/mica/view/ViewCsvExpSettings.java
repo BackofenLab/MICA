@@ -196,7 +196,7 @@ public class ViewCsvExpSettings extends JDialog
 	//! Button to confirm the export
 	private JButton buttonExport = new JButton("Export CSV file");
 	//! Button to abort the export
-	private JButton buttonAbort = new JButton("Abort");
+	private JButton buttonAbort = new JButton("Cancel");
 	
 	//! whether or not the export dialog was aborted or normally closed
 	private boolean exportAborted = false;
