@@ -66,7 +66,7 @@ The MICA GUI currently supports only the import of equidistant curve data,
 i.e. the difference between successive x-coordinates is equal between all
 data points. Thus, their distance is assumed to be 1. Furthermore, the 
 first x-coordinate is set to 0. We are currently working on the import of
-explicit x-coordinate data for the GUI. Full data point support is available
+explicit x-coordinate data for the GUI. Full data point support is e.g. available
 via the [R interface](#Rinterface).
 The y-values for all curves are to be encoded columns-wise.
 
@@ -128,6 +128,15 @@ The checkbox `Show consensus curve` within the upper information bar enables the
 generation and representation of a mean consensus profile of the input curves (after
 length normalization of all curves).
 
+The curve depiction is interactive, i.e. you can:
+
+- zoom in/out by holding down the `Ctrl` key in combination with the mouse wheel 
+  (zoom factor is shown in the upper right corner if < 100%)
+- select individual points of the currently highlighted curve (see selection dropdown); 
+  the selected point is highlighted and according information is provided in the upper information bar 
+- drag the visualized area left/right (when zoomed in) by click+drag with the left mouse button
+- scroll left/right (when zoomed in) with the mouse wheel
+
 
 ### Landmark filtering
 
@@ -158,6 +167,82 @@ Larger numbers of landmarks result in longer runtimes of MICA, since all landmar
 are potential alignment coordinates. Thus, it is useful to tune the filtering 
 parameters to gain (for most curves) a reasonably small selection of 
 extrema and inflection points for the alignment.
+
+
+### Alignment parameters and constraints
+
+The `Alignment setup` section defines the parameterization of the MICA workflow.
+
+The `Distance function` defines what measure is to minimized by the alignment procedure.
+All measures are applied to the given `Sample number` of equidistance x-coordinates.
+It is either possible to minimize the mean absolute difference of slope or y-coordinate 
+values. Slope value differences are insensitive to "y-shifts" of the curves.
+
+`Alignment constraints` are used to restrict the distortion of the curves when aligned.
+The more rigid the constraints, the smaller are the effects of the alignment. Too relaxed
+constraints, on the other hand, might yield too drastic warping and thus alignment artifacts.
+In the following, we will detail the constraint available within the GUI:
+
+- `Min. rel. interval length` restricts the minimal length of an interval to be considered
+  for further decomposition. The value defines the minimal relative length, i.e. it has to 
+  hold `(length/curveLength) >= value`.
+- `Max. warping factor` constrains the maximally allowed length distortion of an interval, 
+  i.e. it has to hold `(max{newLength,oldLength}/min{newLength,oldLength}) <= value`.
+- `Max. rel. x-shift` restricts how far an x-coordinate can be shifted, i.e. it has to hold
+  `(abs(oldX-newX)/curveLength) <= value`. 
+
+Finally, the `Alignment type` defines whether a `Progressive` alignment is to be done, i.e.
+all curves are aligned to each other as best as possible, or if a `Reference-based` alignment
+is to be created. The latter requires the selection which curve is to be considered as
+fixed reference, which is done via an according dialog after using the `Start MICA` button.
+Reference-based alignment fits all curves as best as possible to the given reference, while
+the reference curve is not warped at all and considered fixed.
+
+
+### Starting alignment computation and its visualization
+
+The `Start MICA` button triggers the MICA computation for all curves and the given parameterization.
+A status dialog with abort option is shown while the computation is running.
+
+After completion, the computed alignment is depicted in the lower right part of the GUI. 
+It is accompanied with the final distance score and the computation time (upper information bar).
+It is possible to deactivate the visualization of the representative consensus curve via the
+according checkbox `Show consensus curve` within the upper information bar.
+
+The alignment visualization is interactive, i.e. you can:
+- zoom in/out by holding down the `Ctrl` key in combination with the mouse wheel 
+  (zoom factor is shown in the upper right corner if < 100%)
+- drag the visualized area left/right (when zoomed in) by click+drag with the left mouse button
+- scroll left/right (when zoomed in) with the mouse wheel
+
+The position of the legend is also controlled by the `Plot` menu as for the input curve depiction.
+
+
+### Input/Output file export
+
+The MICA GUI offers the export of both input as well as alignment data in different formats.
+Exports are available via the `File` menu and detailed below.
+
+
+#### Export CSV
+
+Select this menu to export input/output/consensus data in CSV format. The data to be exported
+can be selected via an according dialog as shown below.
+After selection, the target file has to be specified via the subsequent file dialog.
+
+![MICA GUI export CSV](/doc/MICA-GUI-export.png?raw=true "MICA GUI - CSV export dialog")
+
+
+#### Export PNG
+
+To export an image of the visualized curves, you can use the PNG export menu. First, you have to
+chose the resolution/size of the image to be created via the dialog shown below.
+After selection, the target file has to be specified via the subsequent file dialog.
+
+![MICA GUI export PNG](/doc/MICA-GUI-export-PNG.png?raw=true "MICA GUI - PNG export dialog")
+
+
+
 
 
 

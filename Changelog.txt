@@ -1,4 +1,7 @@
 
+170524 MM :
+	* CSV and PNG export revisited and corrected
+
 170508 MM :
 	* view/MicaMainFrame :
 	  * refreshPlot() :
@@ -10,7 +13,7 @@
 	  + pruneQuotes : prunes quote signs from read CSV entries
 	* view/ViewExportSelection :
 	  * use MicaData in constructor
-	* constroller/GuiController :
+	* controller/GuiController :
 	  * exportResult() :
 	    * bugfix: use new ViewExportSelection constructor to avoid 
 	      exception if no alignment consensus available
