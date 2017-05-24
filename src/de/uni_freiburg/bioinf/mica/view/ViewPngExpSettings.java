@@ -159,7 +159,7 @@ public class ViewPngExpSettings extends JDialog implements ActionListener {
 		/**
 		 * Create a radio button for the custom dimension and add to the set
 		 */
-		stringCustomRB = new String("manual resolution: ");
+		stringCustomRB = new String("manual size: ");
 		radiobuttonCustom = new JRadioButton(stringCustomRB
 				+ (int) customDim.getHeight() + " x "
 				+ (int) customDim.getWidth());
