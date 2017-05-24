@@ -42,7 +42,7 @@ public class MicaMain {
 		
 		// TODO : maybe allow several input files or STDIN for one alignment
 		parser.accepts(Arguments.curves.toString(),
-				"Optional file name of the CSV file holding the curves to be align ('csvDelim' separated columns; equidistant y-coordinates assumed)."
+				"Optional file name of the CSV file holding the curves to be align ('csvDelim' separated columns; equidistant x-coordinates assumed)."
 				+ " If present, the alignment will be computed and written to 'output'."
 				+ " If absent, the graphical user interface is started.")
 			.withRequiredArg()
@@ -84,7 +84,7 @@ public class MicaMain {
 				;
 		
 		parser.accepts(Arguments.distBase.toString(),
-				"The base on what to compute the distance function: "+Arrays.toString(DistanceBase.values()))
+				"The values on what to compute the distance function: "+Arrays.toString(DistanceBase.values()))
 				.withRequiredArg()
 				.ofType( DistanceBase.class )
 				.defaultsTo(DistanceBase.SLOPE)
@@ -124,7 +124,7 @@ public class MicaMain {
 		
 		ranges.put(Arguments.alnReference, new DoubleRange(1,999));
 		parser.accepts(Arguments.alnReference.toString(),
-				"Optional column index (>=1) of the curve to designate as reference for the alignment)")
+				"Optional column index (>=1) of the curve to designate as reference for the alignment.")
 				.withRequiredArg()
 				.ofType( Integer.class )
 				;
