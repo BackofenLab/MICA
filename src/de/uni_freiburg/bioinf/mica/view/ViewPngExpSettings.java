@@ -367,48 +367,52 @@ public class ViewPngExpSettings extends JDialog implements ActionListener {
 							JOptionPane.INFORMATION_MESSAGE, null, null,
 							(int) setDimensions.getLast().getHeight() + " x "
 									+ (int) setDimensions.getLast().getHeight());
-			/**
-			 * Remove all white spaces from the user input
-			 */
-			dialogRet = dialogRet.replaceAll("\\s", "");
-			/**
-			 * User the x symbol as delimiter to split the height and with
-			 * value.
-			 */
-			String[] resolution = dialogRet.split("x");
-			/**
-			 * We expect at this point exactly two input values
-			 */
-			if (resolution.length == 2) {
-				int w = -1;
-				int h = -1;
+			
+			// check if dialog was aborted or nothing entered
+			if (dialogRet != null && ! dialogRet.trim().isEmpty()) {
 				/**
-				 * Try to parse the input to integer values.
+				 * Remove all white spaces from the user input
 				 */
-				try {
-					w = Integer.parseInt(resolution[0]);
-					h = Integer.parseInt(resolution[1]);
-				} catch (NumberFormatException ex) {
-					// ex.printStackTrace();
-				}
+				dialogRet = dialogRet.replaceAll("\\s", "");
 				/**
-				 * If the input height and with is in a valid range (larger than
-				 * 0) adapt the radio button and the dimension object which is
-				 * responsible for customization
+				 * User the x symbol as delimiter to split the height and with
+				 * value.
 				 */
-				if (w >= 1 && h >= 1) {
-					setDimensions.getLast().setSize(w, h);
-					radiobuttonCustom.setText(stringCustomRB + "" + w + " x "
-							+ h);
-				} else {
+				String[] resolution = dialogRet.split("x");
+				/**
+				 * We expect at this point exactly two input values
+				 */
+				if (resolution.length == 2) {
+					int w = -1;
+					int h = -1;
 					/**
-					 * The input is not valid, show error message and keep the
-					 * previous costomization values.
+					 * Try to parse the input to integer values.
 					 */
-					JOptionPane.setDefaultLocale(Locale.ENGLISH);
-					JOptionPane.showMessageDialog(null,
-							"Corrupt resolution input.", "Error",
-							JOptionPane.ERROR_MESSAGE);
+					try {
+						w = Integer.parseInt(resolution[0]);
+						h = Integer.parseInt(resolution[1]);
+					} catch (NumberFormatException ex) {
+						// ex.printStackTrace();
+					}
+					/**
+					 * If the input height and with is in a valid range (larger than
+					 * 0) adapt the radio button and the dimension object which is
+					 * responsible for customization
+					 */
+					if (w >= 1 && h >= 1) {
+						setDimensions.getLast().setSize(w, h);
+						radiobuttonCustom.setText(stringCustomRB + "" + w + " x "
+								+ h);
+					} else {
+						/**
+						 * The input is not valid, show error message and keep the
+						 * previous costomization values.
+						 */
+						JOptionPane.setDefaultLocale(Locale.ENGLISH);
+						JOptionPane.showMessageDialog(null,
+								"Corrupt resolution input.", "Error",
+								JOptionPane.ERROR_MESSAGE);
+					}
 				}
 			}
 		}
