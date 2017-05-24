@@ -60,6 +60,10 @@ public class ViewPngExpSettings extends JDialog implements ActionListener {
 	 */
 	private JButton buttonSelectFile = null;
 	/**
+	 * Button to cancel the export
+	 */
+	private JButton buttonCancel = new JButton("Cancel");
+	/**
 	 * Attribute which contains the result dimension.
 	 */
 	private Dimension resultDimension = null;
@@ -221,10 +225,11 @@ public class ViewPngExpSettings extends JDialog implements ActionListener {
 		/**
 		 * Create panel for the button or file name selection
 		 */
-		JPanel panelFileName = new JPanel(new GridLayout(1, 1));
+		JPanel panelFileName = new JPanel(new GridBagLayout());
 		panelFileName.setBorder(new TitledBorder(new EtchedBorder(),
 				"Select file and save"));
 		panelFileName.add(buttonSelectFile);
+		panelFileName.add(buttonCancel);
 
 		/**
 		 * Add the panels to the frame with constraints
@@ -257,6 +262,7 @@ public class ViewPngExpSettings extends JDialog implements ActionListener {
 	 */
 	private void addActionListeners() {
 		buttonSelectFile.addActionListener(this);
+		buttonCancel.addActionListener(this);
 		radiobuttonCustom.addActionListener(this);
 	}
 
@@ -316,6 +322,13 @@ public class ViewPngExpSettings extends JDialog implements ActionListener {
 	 */
 	@Override
 	public void actionPerformed(ActionEvent e) {
+		if (e.getSource() == buttonCancel) {
+			// disable input
+			resultDimension = null;
+			resultFile = null;
+			// hide dialog
+			this.setVisible( false );
+		} else
 		if (e.getSource() == buttonSelectFile) {
 			/**
 			 * Ask the user for a filename
