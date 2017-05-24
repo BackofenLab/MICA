@@ -1,12 +1,19 @@
 package de.uni_freiburg.bioinf.mica.controller;
 
+import java.awt.Color;
+import java.awt.Dimension;
 import java.awt.FileDialog;
 import java.awt.Frame;
+import java.awt.Graphics;
+import java.awt.image.BufferedImage;
 import java.io.BufferedWriter;
+import java.io.File;
 import java.io.FileWriter;
 import java.util.LinkedList;
+import java.util.Locale;
 import java.util.Observer;
 
+import javax.imageio.ImageIO;
 import javax.swing.JOptionPane;
 import javax.swing.ToolTipManager;
 
@@ -28,6 +35,7 @@ import de.uni_freiburg.bioinf.mica.view.DoubleParameter;
 import de.uni_freiburg.bioinf.mica.view.MicaMainFrame;
 import de.uni_freiburg.bioinf.mica.view.ViewCsvExpSettings;
 import de.uni_freiburg.bioinf.mica.view.ViewParse;
+import de.uni_freiburg.bioinf.mica.view.ViewPngExpSettings;
 import de.uni_freiburg.bioinf.mica.view.ViewPngExpSettings.SourceType;
 
 /**
@@ -652,6 +660,82 @@ public class GuiController implements MicaController, ISolutionDistributor {
 			}
 		}
 		return true;
+	}
+	
+	/**
+	 * Triggers the PNG export dialogs and output.
+	 * 
+	 * @param lpos the position of the legend within the image to be exported
+	 */
+	public void exportPng( ColoredAnnotatedCurvePlot.LegendPos lpos ) {
+
+		
+		// check if already something available for export
+		if (model.getAvailableProfileData() == null || model.getAvailableProfileData().isEmpty()) {
+			// show information
+			JOptionPane.showMessageDialog(null, "No curves available.", "Export notification", JOptionPane.INFORMATION_MESSAGE);
+			// stop further export
+			return;
+		}
+		
+		
+		// create dialog to select the picture size
+		ViewPngExpSettings viewPngExp = new ViewPngExpSettings(null, model.getAlignmentResult() != null);
+		// show dialog and wait for selection
+		viewPngExp.setVisible(true);
+		
+		// get selected output dimensions
+		Dimension expDim = viewPngExp.getPictureExportSize();
+		
+		// check if export aborted
+		if (expDim == null) {
+			return;
+		}
+		
+		// get file name to export to
+		File pictureFile = viewPngExp.getPictureExportFilepath();
+		// check if export aborted
+		if (pictureFile == null) {
+			return;
+		}
+		
+		// Create the plot with the desired curves for the picture
+		ColoredAnnotatedCurvePlot plotForPic = createPlotForPicture(viewPngExp.getSourceTypeSelection());
+		// Set the background color
+		plotForPic.setBackgroundColor(Color.white);
+		// Set the legend pox position
+		plotForPic.setLegendPosition(lpos);
+		
+		// Create the image buffer
+		plotForPic.setSize(expDim);
+		BufferedImage bi = new BufferedImage(
+				plotForPic.getSize().width,
+				plotForPic.getSize().height,
+				BufferedImage.TYPE_INT_ARGB);
+		Graphics g = bi.createGraphics();
+		plotForPic.paint(g);
+		g.dispose();
+
+		// Write the picture into the file.
+		String infoMsg = null;
+		int msgType = JOptionPane.INFORMATION_MESSAGE;
+		try {
+			ImageIO.write(bi, "png", pictureFile);
+			infoMsg = new String(" was successful.");
+
+		} catch (Exception ex) {
+			msgType = JOptionPane.ERROR_MESSAGE;
+			infoMsg = new String(" failed.");
+		}
+		// Create information message to confirm the success.
+		JOptionPane.setDefaultLocale(Locale.ENGLISH);
+		JOptionPane.showMessageDialog(null, 
+				"PNG export to \n" + pictureFile.getAbsoluteFile()
+				+ "\nwith resolution " + (int) expDim.getWidth()
+				+ "x" + (int) expDim.getHeight() + infoMsg
+				, "PNG export information"
+				, msgType);
+		
 	}
 
 	/**
