@@ -556,40 +556,66 @@ The available commandline parameters are:
   If present, the alignment will be computed and written to `--output`.
   If absent, the graphical user interface is started.
   See [MICA input](#MICAinput).
-- `--csvDelim` <CHAR> : (default ';') 
+  
+- `--csvDelim` <CHAR> : (default ';')
+ 
   The column deliminator to be used for CSV parsing and writing.
-- `--csvNoHeader` : 
+  
+- `--csvNoHeader` :
+ 
   If given, CSV files are parsed and written WITHOUT column headers.
+
 - `--output` <STRING> : 
+
   Optional file name of the CSV file the new x-coordinates for each aligned y-coordinate is written to. 
   If not provided, the alignment is written to the standard output stream.
+
 - `--filterExtrema` <DOUBLE> : (default 0.01)
+
   Minimal difference of neighbored extrema (relative scale in range [0,1]) to be considered for alignment.
   See [landmark filtering](#landmarkFiltering).
+
 - `--filterInflect` <DOUBLE> : (default 0.01)
+
   Minimal absolute slope of an inflection point (relative scale in range [0,1]) to be considered for alignment.
   See [landmark filtering](#landmarkFiltering).
+
 - `--distBase` <SLOPE|Y_DATA> : (default SLOPE)
+
   The values on what to compute the distance function. 
   See [MICA parameters](#MICAparams).
+
 - `--distSamples` <INTEGER> : (default 100)
+
   The number of equidistant x-coordinates to be used for distance calculation. 
   See [MICA parameters](#MICAparams).
+
 - `--alnMinLength` <DOUBLE> : (default 0.05)
+
   Minimal relative length of an interval to be considered for further decomposition (range [0,1]). 
   See [MICA parameters](#MICAparams).
+
 - `--alnMaxWarp` <DOUBLE> : (default 2.0)
+
   Maximal interval length warping factor (i.e. max{old/new, new/old}) (range [0,1]). 
   See [MICA parameters](#MICAparams).
+
 - `--alnMaxShift` <DOUBLE> : (default 0.2)
+
   Maximal allowed relative x-coordinate shift per alignment (range [0,1]). 
   See [MICA parameters](#MICAparams).
+
 - `--alnReference` <INTEGER> : 
+
   Optional column index (>=1) of the curve to designate as reference for the alignment. 
   See [MICA parameters](#MICAparams).
+
 - `-h`, `-?`, `--help` : 
+
   Show available parameters and defaults.
+
 - `-v`, `--version` : 
+
   Show MICA version information.
 
 
