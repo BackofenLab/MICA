@@ -1333,21 +1333,9 @@ public class MicaMainFrame extends JFrame implements ActionListener,
 			}
 		} else if (e.getSource() == menuitemExportCsv) {
 
-			FileDialog fd = new FileDialog(new Frame(),
-					"Export solution to CSV", FileDialog.SAVE);
-			fd.setFile("*.csv");
-			fd.setVisible(true);
-			/**
-			 * Valid file name was returned
-			 */
-			if (fd.getDirectory() != null && fd.getFile() != null) {
-				String extension = "";
-				if (!fd.getFile().endsWith(".csv")) {
-					extension = ".csv";
-				}
-				controller.exportResult(fd.getDirectory() + fd.getFile()
-						+ extension);
-			}
+			// trigger CSV export
+			controller.exportCsv();
+			
 		} else if (e.getSource() == menuitemBackColorPlot) {
 			/**
 			 * Change the color of the background of the input plot
