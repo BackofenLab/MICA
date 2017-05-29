@@ -1,4 +1,8 @@
 
+170529 MM :
+	* manual split point alignment fixed
+	* CLI tested and fixed
+
 170524 MM :
 	* CSV and PNG export revisited and corrected
 
