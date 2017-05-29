@@ -120,7 +120,7 @@ in the input plot area in the upper right of the GUI.
 
 The interaction curve depiction in the upper right of the GUI represents
 
-- the curves's data points
+- the curves' data points
 - the annotated and filtered landmarks (and their types)
 - details to selected points (upper information bar)
 - a drop-down selection of the highlighted curve (upper information bar)
@@ -164,7 +164,7 @@ The `Landmark filter` on the left allow to tune the filtering of the landmarks f
 *all* curves. Value changes are directly applied and the input curve representation
 on the upper right is instantly updated.
 
-*Extrema* (minima and maxima of the curves's y-coordinates) can be filter using the
+*Extrema* (minima and maxima of the curves' y-coordinates) can be filter using the
 `Min. extrema difference` value. This value restricts the minimally allowed relative
 y-difference of an extremum to its neighbored extrema. The difference is normalized by
 the overall y-range of the curve. For filtering, the relative difference of all successive
