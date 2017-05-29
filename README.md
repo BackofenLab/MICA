@@ -551,7 +551,7 @@ Currently, the CLI provides as an output the shifted x-coordinates for all input
 A minimal call looks like this:
 
 ```[bash]
-java -jar mica-170529.jar --curves YOUR_INPUT_FILE.csv
+java -jar mica.jar --curves YOUR_INPUT_FILE.csv
 ```
 
 
