@@ -857,7 +857,8 @@ public class MicaMainFrame extends JFrame implements ActionListener,
 	}
 
 	/**
-	 * Function to refresh the pot of the current selected profile
+	 * Refresh the plot of the currently selected input profile(s)
+	 * 
 	 */
 	private void refreshPlot() {
 		LinkedList<Integer> selSet = getSelectedIndicesProfileList();
@@ -886,6 +887,8 @@ public class MicaMainFrame extends JFrame implements ActionListener,
 				double[] newX = new double[c.getCurve().size()];
 				// newX = (oldX-oldStart)/oldLength*newLength + newStart
 				IntStream.range(0, newX.length).forEach( i -> newX[i] = (c.getCurve().getX()[i] - c.getCurve().getXmin())/c.getCurve().length()*meanLength + meanStart );
+				// TODO shift manual split points (initial interval decomposition length normalization)
+				
 				// copy former curve
 				ColoredAnnotatedCurve curveCopy = new ColoredAnnotatedCurve( new AnnotatedCurve(c.getCurve().getName(), newX, c.getCurve().getY(), c.getCurve().getAnnotation()), c.getColor());
 				// add filters
@@ -1859,19 +1862,25 @@ public class MicaMainFrame extends JFrame implements ActionListener,
 	 */
 	@Override
 	public void splitCompleted() {
-		/**
-		 * select the next curve for split insertion
-		 */
+		
+		// select the next curve for split insertion
 		profileIndexForSplit++;
+		
+		// check if all curves have been processed (split = complete)
 		if (profileIndexForSplit >= listProfileModel.getSize()) {
-			/**
-			 * Enable the previous disabled (in function requestSplitForProfile)
-			 * view components because the split is completed
-			 */
-			enableDisableViewComponents(true);
+			
+			// mark that all splits are done
 			profileIndexForSplit = -1;
+			
+			// Enable the previous disabled (in function requestSplitForProfile)
+			// view components because the split is completed
+			enableDisableViewComponents(true);
+			
+			// trigger repaint
 			userActionProfileSelection();
+			
 		} else {
+			// trigger split insertion for next profile
 			requestSplitForProfile();
 		}
 	}
