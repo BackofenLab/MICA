@@ -43,6 +43,8 @@ for the input.
   Dendrochronologia, 37 pp. 33-45, 2016.
   DOI: 10.1016/j.dendro.2015.12.001
 
+
+<br /><br /><br /><br />
 ## Overview
 
 - [Dependencies](#dependencies)
@@ -54,7 +56,7 @@ for the input.
 
 
 
-
+<br /><br /><br /><br />
 ## Dependencies
 
 - MICA tool :
