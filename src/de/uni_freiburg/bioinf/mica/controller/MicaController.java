@@ -8,7 +8,7 @@ public interface MicaController {
 	/**
 	 * Version information
 	 */
-	public static final String version = "2.0.0-trunk";
+	public static final String version = "2.0.0";
 
 	/**
 	 * To describe on what basis the distance function is to be computed
