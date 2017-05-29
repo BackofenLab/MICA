@@ -23,7 +23,6 @@ import java.beans.PropertyChangeEvent;
 import java.beans.PropertyChangeListener;
 import java.text.DecimalFormat;
 import java.text.DecimalFormatSymbols;
-import java.util.Arrays;
 import java.util.LinkedList;
 import java.util.Locale;
 import java.util.Observable;
@@ -878,7 +877,6 @@ public class MicaMainFrame extends JFrame implements ActionListener,
 		
 		// generate simple mean data + consensus
 		if (plotSet.size() > 1 && showConsensusInput.isSelected()) {
-			double meanLength = plotSet.stream().mapToDouble( c -> c.getCurve().length() ).sum() / (double)plotSet.size();
 			double meanStart = plotSet.stream().mapToDouble( c -> c.getCurve().getXmin() ).sum() / (double)plotSet.size();
 			LinkedList<IntervalDecomposition> decomp = new LinkedList<>();
 			// get length for each interval up to the according split point (defined by manual split points)
@@ -1684,7 +1682,7 @@ public class MicaMainFrame extends JFrame implements ActionListener,
 			/**
 			 * Repaint the plot
 			 */
-			profilePlotIn.repaint();
+			refreshPlot();
 			/**
 			 * Also clear the output plot
 			 */
