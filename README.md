@@ -170,6 +170,28 @@ The curve depiction is interactive, i.e. you can:
 - scroll left/right (when zoomed in) with the mouse wheel
 
 
+
+<a name="manualSplit" />
+
+### Manual pre-alignment
+
+The MICA GUI offers the option to manually pre-align certain positions of the input curves
+before starting the overall alignment optimization via MICA. This is intended to incorporate
+human expert knowledge into the alignment process e.g. to guide difficult or ambiguous 
+situations.
+
+In order to add a pre-alignment, select
+`Add manual point alignment` from the `Manual point alignment` menu. This will successively
+request the selection of a point to be aligned for each curve individually. These manual
+alignment points are directly visualized in the input curves and will be already aligned
+when `Show consensus curve` is enabled for the input visualization (see above).
+
+Repeat this procedure if multiple positions are to be pre-aligned. Note, the marked points are
+aligned in x-coordinate order and *not* in input order. This is done to maintain the monotonicity
+of the alignment.
+
+
+
 <a name="landmarkFiltering" />
 
 ### Landmark filtering
