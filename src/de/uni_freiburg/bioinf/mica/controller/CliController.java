@@ -113,7 +113,8 @@ public class CliController implements MicaController {
 		MicaData alignment = aligner.align( curvesToAlign );
 		
 		// write alignment's new x-coordinates
-		if (options.has(Arguments.output.toString())) 
+		if (options.has(Arguments.output.toString())
+			&& ! options.valueOf(Arguments.output.toString()).toString().equalsIgnoreCase("STDOUT")) 
 		{
 			
 			// open writer

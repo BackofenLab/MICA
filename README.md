@@ -612,7 +612,7 @@ The available commandline parameters are:
 - `--output` <STRING> : 
 
   Optional file name of the CSV file the new x-coordinates for each aligned y-coordinate is written to. 
-  If not provided, the alignment is written to the standard output stream.
+  If not provided (or set to `STDOUT`), the alignment is written to the standard output stream.
 
 - `--filterExtrema` <DOUBLE> : (default 0.01)
 
