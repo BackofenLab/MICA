@@ -545,7 +545,8 @@ with the according MICA jar file path to enable the correct `rJava` initializati
 The MICA software offers beside its [Graphical user interface (GUI)](#GUI) also a Commandline interface (CLI)
 for the use of MICA in automated processing pipelines. To enable the CLI, you have to run MICA while using 
 the `--curves` parameter with an according input file (see details below). If this parameter is provided,
-no GUI is started but directly an alignment is computed using the provided parameters.
+no GUI is started but directly an alignment is computed using the provided parameters. 
+Currently, the CLI provides as an output the shifted x-coordinates for all input coordinates.
 
 The available commandline parameters are:
 
