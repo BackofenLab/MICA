@@ -244,7 +244,7 @@ public class IntervalDecomposition {
 	 * Note, the both boundaries are excluded from the warping and the right boundary serves as warping anchor:
 	 * 
 	 *    x_new[r] = x[r]
-	 *    x_new[] = x_new[r] - (x[r]-x[p])*warpingFactor
+	 *    x_new[p] = x_new[r] - (x[r]-x[p])*warpingFactor
 	 *  
 	 * NOTE: you have to call {@link #getCurve().updateSpline()} after calling this function
 	 *  
