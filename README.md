@@ -548,6 +548,13 @@ the `--curves` parameter with an according input file (see details below). If th
 no GUI is started but directly an alignment is computed using the provided parameters. 
 Currently, the CLI provides as an output the shifted x-coordinates for all input coordinates.
 
+A minimal call looks like this:
+
+```[bash]
+java -jar mica-170529.jar --curves YOUR_INPUT_FILE.csv
+```
+
+
 The available commandline parameters are:
 
 - `--curves` <STRING> : 
