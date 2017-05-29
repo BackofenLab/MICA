@@ -31,6 +31,18 @@ of all curves. The according consensus curve yields thus the representative cons
 for the input.
 
 
+#### Publications using MICA
+
+- [Microstructure alignment of wood density profiles: an approach to equalize radial differences in growth rate](http://dx.doi.org/10.1007/s00468-012-0702-y). 
+  Bela Bender, Martin Mann, Rolf Backofen, and Heinrich Spiecker.
+  Trees - Structure and Function, 26 no. 4 pp. 1267-1274, 2012.
+  DOI: 10.1007/s00468-012-0702-y
+
+- [Spatiotemporal alignment of radial tracheid diameter profiles of submontane norway spruce](http://dx.doi.org/10.1016/j.dendro.2015.12.001). 
+  Dominik F. Stangler, Martin Mann, Hans-Peter Kahle, Elena Rosskopf, Siegfried Fink, and Heinrich Spiecker.
+  Dendrochronologia, 37 pp. 33-45, 2016.
+  DOI: 10.1016/j.dendro.2015.12.001
+
 ## Overview
 
 - [Dependencies](#dependencies)
