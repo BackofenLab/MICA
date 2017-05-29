@@ -23,6 +23,7 @@ import java.beans.PropertyChangeEvent;
 import java.beans.PropertyChangeListener;
 import java.text.DecimalFormat;
 import java.text.DecimalFormatSymbols;
+import java.util.Arrays;
 import java.util.LinkedList;
 import java.util.Locale;
 import java.util.Observable;
@@ -880,24 +881,70 @@ public class MicaMainFrame extends JFrame implements ActionListener,
 			double meanLength = plotSet.stream().mapToDouble( c -> c.getCurve().length() ).sum() / (double)plotSet.size();
 			double meanStart = plotSet.stream().mapToDouble( c -> c.getCurve().getXmin() ).sum() / (double)plotSet.size();
 			LinkedList<IntervalDecomposition> decomp = new LinkedList<>();
+			// get length for each interval up to the according split point (defined by manual split points)
+			// the last entry is the length up to the end of the curve
+			double[] meanLengthPerInterval = new double[ plotSet.get(0).getSplitPoints().size()+1 ];
+			for ( int split = 0; split < plotSet.get(0).getSplitPoints().size(); split++ ) {
+				// get mean interval length for this split point
+				meanLengthPerInterval[split] = 0.0;
+				for (int p=0; p < plotSet.size(); p++) {
+					// sum all interval lengths for all curves
+					meanLengthPerInterval[split] 
+							// x-coordinate of interval end (== current split point)
+							+= plotSet.get(p).getCurve().getX()[plotSet.get(p).getSplitPoints().get(split)] 
+							// substract x-coordinate of interval start (== previous split point or curve start)
+							- plotSet.get(p).getCurve().getX()[ split==0 ? 0 : plotSet.get(p).getSplitPoints().get(split-1)];
+				}
+				// normalize interval length
+				meanLengthPerInterval[split] /= (double)plotSet.size();
+			}
+			// compute final interval length
+			meanLengthPerInterval[meanLengthPerInterval.length-1] = 0.0;
+			for (int p=0; p < plotSet.size(); p++) {
+				// sum all interval lengths for all curves
+				meanLengthPerInterval[meanLengthPerInterval.length-1] 
+						// x-coordinate of interval end (== curve end)
+						+= plotSet.get(p).getCurve().getX()[plotSet.get(p).getCurve().size()-1]
+						// substract x-coordinate of interval start (== curve start or last split point)
+						- plotSet.get(p).getCurve().getX()[ meanLengthPerInterval.length == 1 ? 0 : plotSet.get(p).getSplitPoints().get(meanLengthPerInterval.length-2) ];
+			}
+			// normalize interval length
+			meanLengthPerInterval[meanLengthPerInterval.length-1] /= (double)plotSet.size();
+			
+			// create length normalized copy of each curve 
 			for ( int p=0; p<plotSet.size(); p++ ) {
 				// get current curve
 				ColoredAnnotatedCurve c = plotSet.get(p);
 				// construct new x-coordinates
 				double[] newX = new double[c.getCurve().size()];
-				// newX = (oldX-oldStart)/oldLength*newLength + newStart
-				IntStream.range(0, newX.length).forEach( i -> newX[i] = (c.getCurve().getX()[i] - c.getCurve().getXmin())/c.getCurve().length()*meanLength + meanStart );
-				// TODO shift manual split points (initial interval decomposition length normalization)
-				
+				// newX = copy of old x-coordinates
+				IntStream.range(0, newX.length).forEach( i -> newX[i] = c.getCurve().getX()[i] );
+				// correct interval lengths
+				newX[0] = meanStart;
+				for (int d = 0; d<meanLengthPerInterval.length; d++) {
+					
+					int intervalStart = (d==0) ? 0 : c.getSplitPoints().get(d-1);
+					int intervalEnd = (d==meanLengthPerInterval.length-1) ? newX.length-1 : c.getSplitPoints().get(d);
+					
+					double warpingFactor = meanLengthPerInterval[d] / (c.getCurve().getX()[intervalEnd] - c.getCurve().getX()[intervalStart]);
+					// apply x-coordinate change to all points within the interval excluding the left boundary
+					IntStream.rangeClosed( intervalStart+1, intervalEnd).forEach( 
+							i -> newX[i] = newX[intervalStart] + (c.getCurve().getX()[i] - c.getCurve().getX()[intervalStart]) * warpingFactor );
+				}
 				// copy former curve
 				ColoredAnnotatedCurve curveCopy = new ColoredAnnotatedCurve( new AnnotatedCurve(c.getCurve().getName(), newX, c.getCurve().getY(), c.getCurve().getAnnotation()), c.getColor());
 				// add filters
 				c.getCurve().getAnnotationFilter().stream().forEachOrdered( f -> curveCopy.getCurve().addAnnotationFilter(f) );
+				// copy split points
+				for (int splitIdx : c.getSplitPoints()) {
+					curveCopy.addSplitPoint( splitIdx );
+				}
 				// store
 				plotSet.set(p, curveCopy );
 				// add as an initial decomposition
-				decomp.add( new IntervalDecomposition( plotSet.get(p).getCurve() ));
+				decomp.add( new IntervalDecomposition( plotSet.get(p).getCurve() ) );
 			}
+				
 			// get consensus
 			AnnotatedCurve cons = MICA.getConsensusCurve( decomp ).getCurveOriginal();
 			// overwrite annotations
