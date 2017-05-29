@@ -190,6 +190,8 @@ public class MicaMain {
 		out.println();
 		out.println(" Version "+MicaController.version);
 		out.println();
+		out.println(" https://github.com/BackofenLab/MICA");
+		out.println();
 	}
 
 	public static void main(String[] args) {
