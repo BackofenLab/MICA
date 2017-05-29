@@ -113,7 +113,8 @@ public class CliController implements MicaController {
 		MicaData alignment = aligner.align( curvesToAlign );
 		
 		// write alignment's new x-coordinates
-		if (options.has(Arguments.output.toString())) {
+		if (options.has(Arguments.output.toString())) 
+		{
 			
 			// open writer
 			FileWriter fileWriter = null;
@@ -140,7 +141,18 @@ public class CliController implements MicaController {
 
 		} else {
 			// write to STDOUT
-			csvFileHandler.writeX(new PrintWriter(System.out), alignment.curves, true, csvHeader);
+			PrintWriter sysout = null;
+			try {
+				sysout = new PrintWriter(System.out);
+				csvFileHandler.writeX( sysout, alignment.curves, true, csvHeader);
+				sysout.flush();
+				sysout.close();
+			} catch (Exception e) {
+				// close writer
+				if (sysout != null) sysout.close();
+				// forward exception
+				throw new IOException("cannot write output file "+(File)options.valueOf(Arguments.output.toString())+" : "+e.getMessage());
+			}
 		}
 		
 	}
