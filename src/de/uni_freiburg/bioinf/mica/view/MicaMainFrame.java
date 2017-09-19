@@ -627,7 +627,7 @@ public class MicaMainFrame extends JFrame implements ActionListener,
 			}
 		});
 		this.setLayout(new GridLayout(1, 2));
-		this.setMinimumSize(new Dimension(1280, 800));
+		this.setMinimumSize(new Dimension(800, 600));
 		this.setExtendedState(Frame.MAXIMIZED_BOTH);
 		this.setLocationRelativeTo(null);
 		this.setJMenuBar(menubar);
