@@ -49,6 +49,7 @@ for the input.
 
 - [Dependencies](#dependencies)
 - [Installation](#installation) from [release page](https://github.com/BackofenLab/MICA/releases)
+- [Example data sets](#data)
 - [Graphical user interface](#GUI)
 - [R interface](#RI)
 - [Command line interface](#CLI)
@@ -101,6 +102,26 @@ that are required to build and run MICA.
 
 
 
+<a name="data" />
+
+<br /><br /><br /><br />
+## Example data sets
+
+In order to ease the initial testing of MICA, we provide the following 
+[example data sets](/data/).
+You can directly load the CSV files with MICA and investigate the effects of different parameterizations etc.
+
+#### [HF-density-1976](/data/):
+
+This probe contains intra-anual wood density data of a Douglas-fir tree ring 
+(Pseudotsuga menziesii [Mirb.] Franco) grown in southwestern Germany in the year 1976.
+The density was equidistantly measured in 7 radial directions and shows the variations of tree growth along the circumference of a tree.
+To derive a representative consensus profile that well reflects all measured profiles, a prior alignment of the curves is needed, which can be done with MICA.
+
+
+
+
+
 <a name="GUI" />
 
 <br /><br /><br /><br />
@@ -117,6 +138,7 @@ are detailed while following a typical MICA workflow.
 
 ![MICA GUI](/doc/MICA-GUI.png?raw=true "MICA graphical user interface")
 
+(Snapshot for example data set [data/HF-density-1976.csv](/data/HF-density-1976.csv))
 
 <a name="MICAinput" />
 
@@ -130,13 +152,14 @@ explicit x-coordinate data for the GUI. Full data point support is e.g. availabl
 via the [R interface](#RI).
 The y-values for all curves are to be encoded columns-wise.
 
-Curve data can be loaded in CSV format (one curve per column) either
+Curve data can be loaded in CSV format (one curve per column, see 
+[example files](/data/) within the [data](/data/) subfolder) either
 
 - use the `File` submenu `Import curve`, or
 - double-click at the `Curve selection` field in the upper left corner, or
 - use the `Import curves` button below the selection.
 
-Both open a file dialog to select a CSV file to import data from.
+All open a file dialog to select a CSV file to import data from.
 After file selection, an import preview dialog is opened. Therein, CSV
 specific parameters can be set, i.e.
 
