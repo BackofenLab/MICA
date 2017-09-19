@@ -113,8 +113,8 @@ You can directly load the CSV files with MICA and investigate the effects of dif
 
 #### [HF-density-1976](/data/):
 
-This probe contains intra-anual wood density data of a Douglas-fir tree rings 
-(Pseudotsuga menziesii [Mirb.] Franco) grown in southwestern Germany for the year 1976.
+This probe contains intra-anual wood density data of a Douglas-fir tree ring 
+(Pseudotsuga menziesii [Mirb.] Franco) grown in southwestern Germany in the year 1976.
 The density was equidistantly measured in 7 radial directions and shows the variations of tree growth along the circumference of a tree.
 To derive a representative consensus profile that well reflects all measured profiles, a prior alignment of the curves is needed, which can be done with MICA.
 
