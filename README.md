@@ -48,6 +48,7 @@ for the input.
 ## Overview
 
 - [Dependencies](#dependencies)
+- [Installation](#installation) from [release page](https://github.com/BackofenLab/MICA/releases)
 - [Graphical user interface](#GUI)
 - [R interface](#RI)
 - [Command line interface](#CLI)
@@ -68,6 +69,33 @@ for the input.
   
 Required non-standard Java libraries are either included within the JAR file or part of the provided packages.
 
+
+
+
+
+
+<br /><br /><br /><br />
+## Installation
+
+To use MICA's
+[Graphical user](#GUI) or 
+[Command line interface](#CLI), 
+you only have to download the precompiled Java file `mica.jar` from the 
+[release page](https://github.com/BackofenLab/MICA/releases).
+
+Given Java is correctly installed, you only have to either double-click on `mica.jar` to open the GUI
+or to run `java -jar mica.jar` within a command prompt/terminal.
+
+For details how to use MICA within R, please refer to the [R interface](#RI) description.
+
+When you are interested in compiling MICA yourself either
+
+- clone the git repository (master branch) or
+- download the source archive of the according version from the [release page](https://github.com/BackofenLab/MICA/releases)
+
+For compilation, you might have to extend your build library path with the 
+provided `lib` subfolder and the included `.jar` files of the libraries 
+that are required to build and run MICA.
 
 
 
