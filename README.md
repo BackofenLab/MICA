@@ -108,18 +108,15 @@ that are required to build and run MICA.
 ## Example data sets
 
 In order to ease the initial testing of MICA, we provide the following 
-[example data sets](/data/):
+[example data sets](/data/).
+You can directly load the CSV files with MICA and investigate the effects of different parameterizations etc.
 
-#### HF-density-1976
+#### [HF-density-1976](/data/):
 
 This probe contains intra-anual wood density data of a Douglas-fir tree rings 
 (Pseudotsuga menziesii [Mirb.] Franco) grown in southwestern Germany for the year 1976.
-
 The density was equidistantly measured in 7 radial directions and shows the variations of tree growth along the circumference of a tree.
-
 To derive a representative consensus profile that well reflects all measured profiles, a prior alignment of the curves is needed, which can be done with MICA.
-
-You can directly load the CSV file with MICA and investigate the effects of different parameterizations etc.
 
 
 
