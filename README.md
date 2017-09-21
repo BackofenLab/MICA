@@ -120,7 +120,7 @@ To derive a representative consensus profile that well reflects all measured pro
 
 This example very well demonstrates the need of alignment when deriving a representative consensus profile.
 The consensus of the length-normalized input curves only shows a single peak while all input curves show two significant peaks. Thus the common signal (2 peaks) is completely lost.
-In contrast, when representative consensus of the MICA aligned curves features both peaks, as you can see when loading with MICA.
+In contrast, the representative consensus of the MICA aligned curves features both peaks.
 
 [<img src="/data/HF-density-2000.jpg" width="200">](/data/HF-density-2000.jpg?raw=true "MICA for HF-density-2000")
 
