@@ -1,0 +1,9 @@
+
+This probe contains intra-anual wood density data of a Douglas-fir tree ring (Pseudotsuga menziesii [Mirb.] Franco) grown in southwestern Germany in the year 1976.
+
+The density was equidistantly measured in 7 radial directions and shows the variations of tree growth along the circumference of a tree.
+
+To derive a representative consensus profile that well reflects all measured profiles, a prior alignment of the curves is needed, which can be done with MICA.
+
+This data set shows a transition of the curves' characteristics from a single major peak to a two-peak shape, which is lost in the initial consensus of the length-normalized curves.
+However, MICA's progressive alignment scheme is able to align the curves such that the resulting representative consensus shows the two-peak characteristic.
