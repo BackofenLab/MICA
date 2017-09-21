@@ -111,12 +111,42 @@ In order to ease the initial testing of MICA, we provide the following
 [example data sets](/data/).
 You can directly load the CSV files with MICA and investigate the effects of different parameterizations etc.
 
+#### [HF-density-2000](/data/):
+
+This probe contains intra-anual wood density data of a Douglas-fir tree ring 
+(Pseudotsuga menziesii [Mirb.] Franco) grown in southwestern Germany in the year 2000.
+The density was equidistantly measured in 8 radial directions and shows the variations of tree growth along the circumference of a tree.
+To derive a representative consensus profile that well reflects all measured profiles, a prior alignment of the curves is needed, which can be done with MICA.
+
+This example very well demonstrates the need of alignment when deriving a representative consensus profile.
+The consensus of the length-normalized input curves only shows a single peak while all input curves show two significant peaks. Thus the common signal (2 peaks) is completely lost.
+In contrast, the representative consensus of the MICA aligned curves features both peaks.
+
+[<img src="/data/HF-density-2000.jpg" width="200">](/data/HF-density-2000.jpg?raw=true "MICA for HF-density-2000")
+
+
 #### [HF-density-1976](/data/):
 
 This probe contains intra-anual wood density data of a Douglas-fir tree ring 
 (Pseudotsuga menziesii [Mirb.] Franco) grown in southwestern Germany in the year 1976.
 The density was equidistantly measured in 7 radial directions and shows the variations of tree growth along the circumference of a tree.
 To derive a representative consensus profile that well reflects all measured profiles, a prior alignment of the curves is needed, which can be done with MICA.
+
+This data set shows a transition of the curves' characteristics from a single major peak to a two-peak shape, which is lost in the initial consensus of the length-normalized curves.
+However, MICA's progressive alignment scheme is able to align the curves such that the resulting representative consensus shows the two-peak characteristic.
+
+[<img src="/data/HF-density-1976.jpg" width="200">](/data/HF-density-1976.jpg?raw=true "MICA for HF-density-1976")
+
+
+#### [HF-density-1989-outlier](/data/):
+
+This probe contains intra-anual wood density data of a Douglas-fir tree ring 
+(Pseudotsuga menziesii [Mirb.] Franco) grown in southwestern Germany in the year 1989.
+The density was equidistantly measured in 8 radial directions and shows the variations of tree growth along the circumference of a tree.
+To derive a representative consensus profile that well reflects all measured profiles, a prior alignment of the curves is needed, which can be done with MICA.
+
+One of the profiles (probe_8) shows a strong outlier characteristic, which complicates its alignment to the remaining data set. 
+Depending on the parameterization, this strongly influences the final shape of the overall representative consensus profile, as you can see when loading into MICA.
 
 
 
