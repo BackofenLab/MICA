@@ -1,3 +1,12 @@
+	
+version 2.0.1
+
+170919 MM :
+	* minimal GUI resolution lowered to 800x600
+	+ installation documentation added
+	+ test data and documentation added
+	
+version 2.0.0
 
 170529 MM :
 	* manual split point alignment fixed
