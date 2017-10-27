@@ -330,16 +330,24 @@ interpolateCurves <- function( x, y, samples ) {
 #########################################################
 #' Utility function for data pre-processing: You can 
 #' (a) interpolate your data to a given number of dataPoints and/or
-#' (b) apply a smoothing loess function with the given span value
+#' (b) apply a smoothing loess function with the given span value.
+#' 
+#' Note, (b) if the number of data points is below a given threshold, 
+#' the data is interpolated before loess is applied (loessMinPoints). 
+#' Subsequently, the loess coordinates of the original number of data
+#' points are reported. This procedure might be needed if only a low
+#' number of points is available (<20), which might cause the loess 
+#' function to fail.
 #' 
 #' @param y the data to smooth (matrix(double)||data.frame(vector(double)))
 #' @param dataPoints number of data points to interpolate per curve; if <=0 the original data point number is preserved.
 #' @param loessSpan span for the loess smoothing (double); if <= 0 no loess smoothing is applied
+#' @param loessMinPoints minimal number of data points for loess smoothing (integer); if <= 0 no data point interpolation is applied
 #' 
 #' @return the smoothed data
 #' 
 #' @export
-smoothData <- function( y, dataPoints=0, loessSpan=0) {
+smoothData <- function( y, dataPoints=0, loessSpan=0, loessMinPoints=0) {
 
 	# check dataPoints
 	if( !(is.double(dataPoints)||is.integer(dataPoints)) || (as.integer(dataPoints)!=dataPoints) ) stop("dataPoints has to be an integer");
@@ -372,30 +380,30 @@ smoothData <- function( y, dataPoints=0, loessSpan=0) {
 			colNoNa <- as.vector(na.omit(yNew[,c]));
 			# ignore empty col
 			if (length(colNoNa) == 0) next;
+			# interpolate if needed
+			if (loessMinPoints > 0 && length(colNoNa) < loessMinPoints) {
+				colNoNa <- interpolateCurve(x=getEquiX(colNoNa), y=colNoNa, samples=loessMinPoints)$y;
+			}
 			# simulate x values
 			tmp_X <- 1:length(colNoNa);
 			# get loess prediction of data
-			tmp <- predict( loess(colNoNa~tmp_X, span=loessSpan), data.frame(tmp_X=tmp_X));
-			# keep first and last point of original data
-			toSet <- !is.na(yNew[,c]);
-			# find first to replace
-			for ( i in 1:length(toSet) ) {
-				if (toSet[i]) {
-					# disable replacement
-					toSet[i] <- FALSE;
-					break;
-				}
+			tmp <- tryCatch( {predict( loess(colNoNa~tmp_X, span=loessSpan), data.frame(tmp_X=tmp_X))}, error = function(e){NULL}, warning = function(e){NULL});
+			# check if loess prediction failed
+			if (is.null(tmp)) {
+				# fall back to original data and skip further processing
+				next;
 			}
-			# find last to replace
-			for ( i in length(toSet):1 ) {
-				if (toSet[i]) {
-					# disable replacement
-					toSet[i] <- FALSE;
-					break;
-				}
+			# keep first and last point of original data
+			tmp[1] <- colNoNa[1];
+			tmp[length(tmp)] <- colNoNa[length(colNoNa)];
+			# get indices in original data to be replaced
+			toSet <- !is.na(yNew[,c]);
+			# reduce to original number of points if needed
+			if (loessMinPoints > 0 && sum(toSet) < loessMinPoints) {
+				tmp <- interpolateCurve(x=getEquiX(tmp), y=tmp, samples=sum(toSet))$y;
 			}
 			# replace data with loess interpolation
-			yNew[toSet,c] <- tmp[2:(length(tmp)-1)];
+			yNew[toSet,c] <- tmp;
 		}
 	}
 	colnames(yNew) <- colnames(y);
