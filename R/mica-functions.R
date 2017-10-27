@@ -76,8 +76,6 @@ getEquiX <- function( y ) {
 			# ignore pure NA columns
 			if (length(yC) == 0) next;
 			# check column
-			if (!is.vector(yC)) stop(paste("column",c,":","y is no vector"));
-			if (is.list(yC)) stop(paste("column",c,":","y is no vector but a list"));
 			if (!is.double(yC)) stop(paste("column",c,":","y has to be double data"));
 			if (length(yC)<3) stop(paste("column",c,":","min column length of y is 3"));
 		}
@@ -86,7 +84,7 @@ getEquiX <- function( y ) {
 		x <- y;
 		for (c in 1:ncol(x)) {
 			# get number of coordinates to generate for this column
-			samples <- length(na.omit(y[,c]));
+			samples <- length(as.vector(na.omit(y[,c])));
 			# skip empty columns
 			if (samples==0) next;
 			# generate coordinates and feed to according positions
@@ -99,7 +97,7 @@ getEquiX <- function( y ) {
 	if (is.vector(y)) {
 		if (is.list(y)) stop("y is a list, not a vector, matrix or data.frame");
 		# get number of coordinates to generate for this column
-		yN <- na.omit(y);
+		yN <- as.vector(na.omit(y));
 		samples <- length(yN);
 		if (samples==0) stop("only NA given");
 		if (!is.double(yN)) stop("y has to be double data");
@@ -130,12 +128,10 @@ getRelCoord <- function( d ) {
 		# copy data for overwrite
 		dNew <- d;
 		for (c in 1:ncol(d)) {
-			dNoNa <- na.omit(d[,c]);
+			dNoNa <- as.vector(na.omit(d[,c]));
 			# ignore pure NA columns
 			if (length(dNoNa) == 0) next;
 			# apply checks
-			if (!is.vector(dNoNa )) stop(paste("column",c,":","is no vector"));
-			if (is.list(dNoNa )) stop(paste("column",c,":","is no vector but a list"));
 			if (!is.double(dNoNa )) stop(paste("column",c,":","has to be double data"));
 			if (length(dNoNa)<1) stop(paste("column",c,":","contains no double data"));
 			# get minimal value and coordinate range for normalization
@@ -147,7 +143,7 @@ getRelCoord <- function( d ) {
 		return(dNew);
 	} else {
 	if (is.vector(d) && !is.list(d)) {
-		dNoNa <- na.omit(d);
+		dNoNa <- as.vector(na.omit(d));
 		# ignore pure NA columns
 		if (length(dNoNa) == 0) return(d);
 		# apply checks
@@ -259,7 +255,7 @@ interpolateCurves <- function( x, y, samples ) {
 	if (!is.data.frame(y) && !is.matrix(y)) stop("y is no data.frame or matrix");
 	if (ncol(x)!=ncol(y)) stop("x and y differ in column number");
 	for (c in 1:ncol(x)) {
-		if (length(na.omit(x[,c])) != length(na.omit(y[,c]))) stop(paste("column",c,"differs in length for x and y (na.omitted)"));
+		if (length(as.vector(na.omit(x[,c]))) != length(as.vector(na.omit(y[,c])))) stop(paste("column",c,"differs in length for x and y (na.omitted)"));
 	}
 	
 	xNew <- matrix(NA, ncol=ncol(x), nrow=samples);
@@ -595,10 +591,10 @@ alignCurves <- function(
 		# add only non-NA curves
 		if (i == reference) {
 			# add reference curve
-			rJava::.jcall(micaR, method="addReferenceCurve", as.double(na.omit(x[,i])), as.double(na.omit(y[,i])), returnSig="V");
+			rJava::.jcall(micaR, method="addReferenceCurve", as.double(as.vector(na.omit(x[,i]))), as.double(as.vector(na.omit(y[,i]))), returnSig="V");
 		} else {
 			# add normal curve
-			rJava::.jcall(micaR, method="addCurve", as.double(na.omit(x[,i])), as.double(na.omit(y[,i])), returnSig="V");
+			rJava::.jcall(micaR, method="addCurve", as.double(as.vector(na.omit(x[,i]))), as.double(as.vector(na.omit(y[,i]))), returnSig="V");
 		}
 	}
 
