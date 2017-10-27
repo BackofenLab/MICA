@@ -166,6 +166,58 @@ getRelCoord <- function( d ) {
 
 
 #########################################################
+#' Normalizes the given input by applying to each coordinate d[i]
+#'    dNew[i] = (d[i]-mean(d))/sd(d))
+#' NA-entries are omitted
+#' 
+#' @param d coordinate data to normalize (vector(double)||matrix(double)||data.frame(vector(double)))
+#' 
+#' @return the normalized data
+#' 
+#' @export
+getNormData <- function( d ) {
+	
+	if (is.matrix(d) || is.data.frame(d)) {
+		# copy data for overwrite
+		dNew <- d;
+		for (c in 1:ncol(d)) {
+			dNoNa <- as.vector(na.omit(d[,c]));
+			# ignore pure NA columns
+			if (length(dNoNa) == 0) next;
+			# apply checks
+			if (!is.double(dNoNa )) stop(paste("column",c,":","has to be double data"));
+			if (length(dNoNa)<1) stop(paste("column",c,":","contains no double data"));
+			# get minimal value and coordinate range for normalization
+			dMean <- mean(dNoNa);
+			dSd <- sd(dNoNa);
+			# compute relative coordinates
+			dNew[!is.na(d[,c]),c] <- (dNoNa-dMean)/dSd ;
+		}
+		return(dNew);
+	} else {
+		if (is.vector(d) && !is.list(d)) {
+			dNoNa <- as.vector(na.omit(d));
+			# ignore pure NA columns
+			if (length(dNoNa) == 0) return(d);
+			# apply checks
+			if (!is.double(d)) stop("d has to be double data");
+			if (length(dNoNa)<1) stop("d contains no double data");
+			# get minimal value and coordinate range for normalization
+			dMean <- mean(dNoNa);
+			dSd <- sd(dNoNa);
+			# compute relative coordinates
+			return ( (d-dMean)/dSd );
+		} else {
+			stop("d is neither a matrix nor a vector");
+		}
+	}
+	# will never happen
+	return(NA);
+}
+
+
+
+#########################################################
 #' Computes the mean curve for the given curves for a given
 #' number of sample points.
 #' 
