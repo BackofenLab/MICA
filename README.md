@@ -1,4 +1,4 @@
-# MICA - Multiple Interval-based Curve Alignment
+# MICA - Multiple Interval-based Curve Alignment [![GitHub](https://img.shields.io/github/tag/BackofenLab/MICA.svg)](https://github.com/BackofenLab/MICA/releases)
 
 MICA implements a heuristic landmark registration method in combination with a
 progressive alignment scheme to generate multiple curve alignments and according
