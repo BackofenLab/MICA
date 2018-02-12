@@ -6,6 +6,8 @@ MICA implements a heuristic landmark registration method in combination with a
 progressive alignment scheme to generate multiple curve alignments and according
 representative consensus data.
 
+==> Jump directly to [Installation and Usage](#installation) if needed...
+
 The input is a set of discrete time series of e.g. measured data. MICA assumes that
 the time series are based on a common event such that start and end time are to be mapped
 and a global alignment (of the whole time series) is to be computed. To this end,
