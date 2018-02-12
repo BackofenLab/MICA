@@ -51,6 +51,7 @@ for the input.
 <br /><br /><br /><br />
 ## Overview
 
+- [Introduction](#MICA)
 - [Dependencies](#dependencies)
 - [Installation](#installation) from [release page](https://github.com/BackofenLab/MICA/releases)
 - [Example data sets](#data)
@@ -98,9 +99,19 @@ When you are interested in compiling MICA yourself either
 - clone the git repository (master branch) or
 - download the source archive of the according version from the [release page](https://github.com/BackofenLab/MICA/releases)
 
-For compilation, you might have to extend your build library path with the 
+For compilation, you have to extend your build library path with the 
 provided `lib` subfolder and the included `.jar` files of the libraries 
-that are required to build and run MICA.
+that are required to build and run MICA. 
+A possible compilation and starting call (tested with Oracle JDK 1.8.0) is given below.
+
+```[bash]
+# change to 'src' directory
+cd src
+# compile MICA from source
+javac -cp ".;../lib/commons-lang3-3.4.jar;../lib/commons-math3-3.6.1.jar;../lib/java-hamcrest-2.0.0.0.jar;../lib/jopt-simple-5.0.2.jar" de/uni_freiburg/bioinf/mica/controller/MicaMain.java
+# start MICA GUI from shell
+java -cp ".;../lib/commons-lang3-3.4.jar;../lib/commons-math3-3.6.1.jar;../lib/java-hamcrest-2.0.0.0.jar;../lib/jopt-simple-5.0.2.jar" de.uni_freiburg.bioinf.mica.controller.MicaMain
+```
 
 
 

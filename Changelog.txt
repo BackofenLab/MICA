@@ -1,4 +1,24 @@
 
+180212 MR :
+	* view/View* : 
+	  * delimiter fixed to ";" to avoid confusion on different systems
+
+171027 MR :
+	* R/mica-functions.R :
+	  * converting all na.omit() calls to vector via as.vector()
+	  * smoothData() :
+	    + handle errors/warnings produced by loess function (eg. not enough data)
+	  + getNormData() : provides normalized data, i.e. (data-mean)/sd
+	
+version 2.0.1
+
+170919 MR :
+	* minimal GUI resolution lowered to 800x600
+	+ installation documentation added
+	+ test data and documentation added
+	
+version 2.0.0
+
 170529 MM :
 	* manual split point alignment fixed
 	* CLI tested and fixed
