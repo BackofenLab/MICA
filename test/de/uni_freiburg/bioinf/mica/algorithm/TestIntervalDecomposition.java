@@ -58,11 +58,11 @@ public class TestIntervalDecomposition {
 		
 		List<CurveAnnotation> curAnn = curve.getFilteredAnnotations();
 //		Debug.out.println("TestIntervalDecomposition.testDecompose: "+Arrays.toString(curAnn.toArray()));
-		Assert.assertEquals( 4, curAnn.size());
+		Assert.assertEquals( 5, curAnn.size());
 		Assert.assertEquals( 1, dec.size());
 		
 //		Debug.out.println("TestIntervalDecomposition.testDecompose: "+Arrays.toString(dec.getCurve().getX()));
-		dec.decompose(0, curAnn.get(1), 0.33333);
+		dec.decompose(0, curAnn.get(2), 0.33333);
 //		Debug.out.println("TestIntervalDecomposition.testDecompose: "+Arrays.toString(dec.getCurve().getX()));
 		
 		Assert.assertEquals( 2, dec.size());
