@@ -99,9 +99,10 @@ When you are interested in compiling MICA yourself either
 - clone the git repository (master branch) or
 - download the source archive of the according version from the [release page](https://github.com/BackofenLab/MICA/releases)
 
-For compilation, you might have to extend your build library path with the 
+For compilation, you have to extend your build library path with the 
 provided `lib` subfolder and the included `.jar` files of the libraries 
-that are required to build and run MICA. A possible compilation and starting call is given below
+that are required to build and run MICA. 
+A possible compilation and starting call (tested with Oracle JDK 1.8.0) is given below.
 
 ```[bash]
 # change to 'src' directory
