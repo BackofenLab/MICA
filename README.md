@@ -1,8 +1,12 @@
-# MICA - Multiple Interval-based Curve Alignment
+<a name="MICA" />
+
+# MICA - Multiple Interval-based Curve Alignment [![GitHub](https://img.shields.io/github/tag/BackofenLab/MICA.svg)](https://github.com/BackofenLab/MICA/releases)
 
 MICA implements a heuristic landmark registration method in combination with a
 progressive alignment scheme to generate multiple curve alignments and according
 representative consensus data.
+
+==> Jump directly to [Installation and Usage](#installation) if needed...
 
 The input is a set of discrete time series of e.g. measured data. MICA assumes that
 the time series are based on a common event such that start and end time are to be mapped
