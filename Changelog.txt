@@ -1,5 +1,9 @@
 
-171027 MM :
+180212 MR :
+	* view/View* : 
+	  * delimiter fixed to ";" to avoid confusion on different systems
+
+171027 MR :
 	* R/mica-functions.R :
 	  * converting all na.omit() calls to vector via as.vector()
 	  * smoothData() :
@@ -8,7 +12,7 @@
 	
 version 2.0.1
 
-170919 MM :
+170919 MR :
 	* minimal GUI resolution lowered to 800x600
 	+ installation documentation added
 	+ test data and documentation added

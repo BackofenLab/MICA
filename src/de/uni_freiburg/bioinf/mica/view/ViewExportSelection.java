@@ -311,18 +311,14 @@ public class ViewExportSelection extends JDialog implements
 	/**
 	 * Function to get the delimiter specification by the user, if the user
 	 * enters an empty delimiter in the text field this function returns the
-	 * system default delimiter ; or ,
+	 * default delimiter ; 
 	 * 
-	 * @return ; or , depending on the language of the system or the user input
+	 * @return ; or depending on the user input
 	 */
 	public String getDelimiter() {
 		String textFieldDeli = textfieldDelimiter.getText();
 		if (textFieldDeli.isEmpty()) {
-			if (System.getProperty("user.language").equalsIgnoreCase("de")) {
-				textFieldDeli = ";";
-			} else {
-				textFieldDeli = ",";
-			}
+			textFieldDeli = ";";
 		}
 		return textFieldDeli;
 	}

@@ -117,13 +117,9 @@ public class ViewParse extends JDialog implements ActionListener, KeyListener,
 				ModalityType.DOCUMENT_MODAL);
 
 		/**
-		 * Set the default delimiter according to the system settings
+		 * Set the default delimiter 
 		 */
-		if (System.getProperty("user.language").equalsIgnoreCase("de")) {
-			defaultDelimiter = ";";
-		} else {
-			defaultDelimiter = ",";
-		}
+		defaultDelimiter = ";";
 		/**
 		 * Store the filename and create instances of the internal objects.
 		 */

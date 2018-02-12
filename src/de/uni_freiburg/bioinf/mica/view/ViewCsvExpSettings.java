@@ -141,11 +141,10 @@ public class ViewCsvExpSettings extends JDialog
 		private static final long serialVersionUID = 1L;
 
 		/**
-		 * Empty constructor that initializes the delimiter with ';' for german
-		 * systems and ',' otherwise.
+		 * Empty constructor that initializes the delimiter with ';'.
 		 */
 		public DelimiterField() {
-			super( System.getProperty("user.language").equalsIgnoreCase("de") ? ";" : ",",2);
+			super( ";", 2 );
 		}
 
 		/**
@@ -349,18 +348,14 @@ public class ViewCsvExpSettings extends JDialog
 	/**
 	 * Function to get the delimiter specification by the user, if the user
 	 * enters an empty delimiter in the text field this function returns the
-	 * system default delimiter ; or ,
+	 * default delimiter ;
 	 * 
-	 * @return ; or , depending on the language of the system or the user input
+	 * @return ; or depending on the user input
 	 */
 	public char getDelimiter() {
 		String textFieldDeli = textfieldDelimiter.getText();
 		if (textFieldDeli.isEmpty()) {
-			if (System.getProperty("user.language").equalsIgnoreCase("de")) {
-				textFieldDeli = ";";
-			} else {
-				textFieldDeli = ",";
-			}
+			textFieldDeli = ";";
 		}
 		return textFieldDeli.charAt(0);
 	}
