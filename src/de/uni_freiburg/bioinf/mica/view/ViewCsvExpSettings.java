@@ -27,6 +27,7 @@ import javax.swing.text.PlainDocument;
 
 import de.uni_freiburg.bioinf.mica.model.ImportExport;
 import de.uni_freiburg.bioinf.mica.model.ImportExport.OutType;
+import java.awt.Label;
 
 /**
  * View to select what data is to be exported to CSV.
@@ -90,17 +91,15 @@ public class ViewCsvExpSettings extends JDialog
 		 * Selects the button for the given OutType.
 		 * @param selection the OutType to select 
 		 */
-		public
-		void
-		setOutTypeSelection ( OutType selection ) {
-			// select the according button
-			switch (selection) {
-			case OutNone:	outNone.setSelected(true); break;
-			case OutX:		outX.setSelected(true);	break;
-			case OutXY:		outXY.setSelected(true); break;
-			case OutY:		outY.setSelected(true); break;
-			default: 		outNone.setSelected(true); break;
-			}
+		public void setOutTypeSelection(OutType selection) {
+                    // select the according button
+                    switch (selection) {
+                        case OutNone:   outNone.setSelected(true);  break;
+                        case OutX:	outX.setSelected(true);     break;
+                        case OutXY:	outXY.setSelected(true);    break;
+                        case OutY:	outY.setSelected(true);     break;
+                        default: 	outNone.setSelected(true);  break;
+                    }
 		}
 		
 		/**
@@ -144,7 +143,7 @@ public class ViewCsvExpSettings extends JDialog
 		 * Empty constructor that initializes the delimiter with ';'.
 		 */
 		public DelimiterField() {
-			super( ";", 2 );
+			super("; ", 2);
 		}
 
 		/**
@@ -191,7 +190,8 @@ public class ViewCsvExpSettings extends JDialog
 	
 	//! Input field for delimiter value
 	private DelimiterField textfieldDelimiter = new DelimiterField();
-	
+
+        
 	//! Button to confirm the export
 	private JButton buttonExport = new JButton("Export CSV file");
 	//! Button to abort the export
@@ -225,7 +225,7 @@ public class ViewCsvExpSettings extends JDialog
 		
 		// set delimiter
 		textfieldDelimiter.setText( String.valueOf(colDelim) );
-		
+
 		// register button listener
 		buttonExport.addActionListener(this);
 		buttonAbort.addActionListener(this);
@@ -242,7 +242,8 @@ public class ViewCsvExpSettings extends JDialog
 		
 		// Set the properties of this frame.
 		this.setDefaultCloseOperation(JFrame.HIDE_ON_CLOSE);
-		this.setMinimumSize(new Dimension(400, 150));
+		this.setMinimumSize(new Dimension(400, 250));
+                this.setResizable(false);
 		this.setLocationRelativeTo(null);
 		
 		// Add listener if the user closes the window with the [x]
@@ -269,6 +270,7 @@ public class ViewCsvExpSettings extends JDialog
 				, GridBagConstraints.CENTER
 				, GridBagConstraints.HORIZONTAL
 				, new Insets(0, 0, 0, 0), 0, 0);
+                
 		GridBagConstraints gbcInput = new GridBagConstraints(
 				GridBagConstraints.RELATIVE
 				, GridBagConstraints.RELATIVE
@@ -276,8 +278,9 @@ public class ViewCsvExpSettings extends JDialog
 				, 1
 				, 0.7, 0.0
 				, GridBagConstraints.WEST
-				, GridBagConstraints.NONE
-				, new Insets(0, 10, 0, 0), 0, 0);
+				, GridBagConstraints.BOTH
+				, new Insets(5, 10, 0, 10), 10, 10);
+             
 		// delimiter
 		curPanel.add( new JLabel("Column delimiter:", JLabel.RIGHT), gbcLabel );
 		curPanel.add( textfieldDelimiter, gbcInput );
@@ -305,7 +308,7 @@ public class ViewCsvExpSettings extends JDialog
 		c.add( curPanel, new GridBagConstraints(1, 2, 1, 1, 1.0, 0.0
 								, GridBagConstraints.CENTER
 								, GridBagConstraints.HORIZONTAL
-								, new Insets(0, 0, 0, 0), 0, 0) );
+								, new Insets(0, 0, 10, 0), 10, 10) );
 		
 		// trigger layouting of components
 		this.validate();
