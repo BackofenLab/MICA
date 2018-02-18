@@ -27,7 +27,6 @@ import javax.swing.text.PlainDocument;
 
 import de.uni_freiburg.bioinf.mica.model.ImportExport;
 import de.uni_freiburg.bioinf.mica.model.ImportExport.OutType;
-import java.awt.Label;
 
 /**
  * View to select what data is to be exported to CSV.
@@ -143,7 +142,7 @@ public class ViewCsvExpSettings extends JDialog
 		 * Empty constructor that initializes the delimiter with ';'.
 		 */
 		public DelimiterField() {
-			super("; ", 2);
+			super(";", 2);
 		}
 
 		/**
@@ -224,7 +223,7 @@ public class ViewCsvExpSettings extends JDialog
 		}
 		
 		// set delimiter
-		textfieldDelimiter.setText( String.valueOf(colDelim) );
+		textfieldDelimiter.setText(String.valueOf(colDelim));
 
 		// register button listener
 		buttonExport.addActionListener(this);
@@ -242,7 +241,7 @@ public class ViewCsvExpSettings extends JDialog
 		
 		// Set the properties of this frame.
 		this.setDefaultCloseOperation(JFrame.HIDE_ON_CLOSE);
-		this.setMinimumSize(new Dimension(400, 250));
+		this.setMinimumSize(new Dimension(400, 200));
                 this.setResizable(false);
 		this.setLocationRelativeTo(null);
 		
@@ -278,8 +277,8 @@ public class ViewCsvExpSettings extends JDialog
 				, 1
 				, 0.7, 0.0
 				, GridBagConstraints.WEST
-				, GridBagConstraints.BOTH
-				, new Insets(5, 10, 0, 10), 10, 10);
+				, GridBagConstraints.NONE
+				, new Insets(5, 10, 0, 10), 0, 0);
              
 		// delimiter
 		curPanel.add( new JLabel("Column delimiter:", JLabel.RIGHT), gbcLabel );
