@@ -241,7 +241,7 @@ public class ViewCsvExpSettings extends JDialog
 		
 		// Set the properties of this frame.
 		this.setDefaultCloseOperation(JFrame.HIDE_ON_CLOSE);
-		this.setMinimumSize(new Dimension(400, 200));
+		this.setMinimumSize(new Dimension(400, 180));
                 this.setResizable(false);
 		this.setLocationRelativeTo(null);
 		
@@ -307,7 +307,7 @@ public class ViewCsvExpSettings extends JDialog
 		c.add( curPanel, new GridBagConstraints(1, 2, 1, 1, 1.0, 0.0
 								, GridBagConstraints.CENTER
 								, GridBagConstraints.HORIZONTAL
-								, new Insets(0, 0, 10, 0), 10, 10) );
+								, new Insets(0, 0, 0, 0), 10, 10) );
 		
 		// trigger layouting of components
 		this.validate();
