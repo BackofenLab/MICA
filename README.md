@@ -123,10 +123,10 @@ java -cp ".;../lib/commons-lang3-3.4.jar;../lib/commons-math3-3.6.1.jar;../lib/j
 ## Example data sets
 
 In order to ease the initial testing of MICA, we provide the following 
-[example data sets](data/).
+[example data sets](data).
 You can directly load the CSV files with MICA and investigate the effects of different parameterizations etc.
 
-#### [HF-density-2000](data/):
+#### HF-density-2000 [data](data):
 
 This probe contains intra-anual wood density data of a Douglas-fir tree ring 
 (Pseudotsuga menziesii [Mirb.] Franco) grown in southwestern Germany in the year 2000.
@@ -140,7 +140,7 @@ In contrast, the representative consensus of the MICA aligned curves features bo
 [<img src="data/HF-density-2000.jpg" width="200">](data/HF-density-2000.jpg?raw=true "MICA for HF-density-2000")
 
 
-#### [HF-density-1976](data/):
+#### HF-density-1976 [data](data):
 
 This probe contains intra-anual wood density data of a Douglas-fir tree ring 
 (Pseudotsuga menziesii [Mirb.] Franco) grown in southwestern Germany in the year 1976.
@@ -153,7 +153,7 @@ However, MICA's progressive alignment scheme is able to align the curves such th
 [<img src="data/HF-density-1976.jpg" width="200">](data/HF-density-1976.jpg?raw=true "MICA for HF-density-1976")
 
 
-#### [HF-density-1989-outlier](data/):
+#### HF-density-1989-outlier [data](data):
 
 This probe contains intra-anual wood density data of a Douglas-fir tree ring 
 (Pseudotsuga menziesii [Mirb.] Franco) grown in southwestern Germany in the year 1989.
@@ -198,7 +198,7 @@ via the [R interface](#RI).
 The y-values for all curves are to be encoded columns-wise.
 
 Curve data can be loaded in CSV format (one curve per column, see 
-[example files](data/) within the [data](data/) subfolder) either
+[example files](data) within the [data](data) subfolder) either
 
 - use the `File` submenu `Import curve`, or
 - double-click at the `Curve selection` field in the upper left corner, or
