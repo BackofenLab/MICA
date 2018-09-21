@@ -181,7 +181,7 @@ curve alignment (start button on the lower left), the aligned curves are depicte
 lower right part of the GUI. In the following, the individual parts and possible settings
 are detailed while following a typical MICA workflow.
 
-![MICA GUI](/doc/MICA-GUI.png?raw=true "MICA graphical user interface")
+![MICA GUI](doc/MICA-GUI.png?raw=true "MICA graphical user interface")
 
 (Snapshot for example data set [data/HF-density-1976.csv](data/HF-density-1976.csv))
 
@@ -214,7 +214,7 @@ specific parameters can be set, i.e.
 As soon as the setup enables a parsing of the file, an according preview is
 presented to the user. An example is given below.
 
-![MICA GUI import dialog](/doc/MICA-GUI-import.png?raw=true "MICA GUI - data import")
+![MICA GUI import dialog](doc/MICA-GUI-import.png?raw=true "MICA GUI - data import")
 
 Here, the user can (de)select the column to be imported (checkbox in each column header).
 Furthermore, it is possible to automatically interpolate the data to a given number 
@@ -384,7 +384,7 @@ Select this menu to export input/output/consensus data in CSV format. The data t
 can be selected via an according dialog as shown below.
 After selection, the target file has to be specified via the subsequent file dialog.
 
-![MICA GUI export CSV](/doc/MICA-GUI-export.png?raw=true "MICA GUI - CSV export dialog")
+![MICA GUI export CSV](doc/MICA-GUI-export.png?raw=true "MICA GUI - CSV export dialog")
 
 
 #### Export PNG
@@ -393,7 +393,7 @@ To export an image of the visualized curves, you can use the PNG export menu. Fi
 chose the resolution/size of the image to be created via the dialog shown below.
 After selection, the target file has to be specified via the subsequent file dialog.
 
-![MICA GUI export PNG](/doc/MICA-GUI-export-PNG.png?raw=true "MICA GUI - PNG export dialog")
+![MICA GUI export PNG](doc/MICA-GUI-export-PNG.png?raw=true "MICA GUI - PNG export dialog")
 
 
 
