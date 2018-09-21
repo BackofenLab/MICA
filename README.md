@@ -123,10 +123,10 @@ java -cp ".;../lib/commons-lang3-3.4.jar;../lib/commons-math3-3.6.1.jar;../lib/j
 ## Example data sets
 
 In order to ease the initial testing of MICA, we provide the following 
-[example data sets](/data/).
+[example data sets](data/).
 You can directly load the CSV files with MICA and investigate the effects of different parameterizations etc.
 
-#### [HF-density-2000](/data/):
+#### [HF-density-2000](data/):
 
 This probe contains intra-anual wood density data of a Douglas-fir tree ring 
 (Pseudotsuga menziesii [Mirb.] Franco) grown in southwestern Germany in the year 2000.
@@ -137,10 +137,10 @@ This example very well demonstrates the need of alignment when deriving a repres
 The consensus of the length-normalized input curves only shows a single peak while all input curves show two significant peaks. Thus the common signal (2 peaks) is completely lost.
 In contrast, the representative consensus of the MICA aligned curves features both peaks.
 
-[<img src="/data/HF-density-2000.jpg" width="200">](/data/HF-density-2000.jpg?raw=true "MICA for HF-density-2000")
+[<img src="data/HF-density-2000.jpg" width="200">](data/HF-density-2000.jpg?raw=true "MICA for HF-density-2000")
 
 
-#### [HF-density-1976](/data/):
+#### [HF-density-1976](data/):
 
 This probe contains intra-anual wood density data of a Douglas-fir tree ring 
 (Pseudotsuga menziesii [Mirb.] Franco) grown in southwestern Germany in the year 1976.
@@ -150,10 +150,10 @@ To derive a representative consensus profile that well reflects all measured pro
 This data set shows a transition of the curves' characteristics from a single major peak to a two-peak shape, which is lost in the initial consensus of the length-normalized curves.
 However, MICA's progressive alignment scheme is able to align the curves such that the resulting representative consensus shows the two-peak characteristic.
 
-[<img src="/data/HF-density-1976.jpg" width="200">](/data/HF-density-1976.jpg?raw=true "MICA for HF-density-1976")
+[<img src="data/HF-density-1976.jpg" width="200">](data/HF-density-1976.jpg?raw=true "MICA for HF-density-1976")
 
 
-#### [HF-density-1989-outlier](/data/):
+#### [HF-density-1989-outlier](data/):
 
 This probe contains intra-anual wood density data of a Douglas-fir tree ring 
 (Pseudotsuga menziesii [Mirb.] Franco) grown in southwestern Germany in the year 1989.
@@ -183,7 +183,7 @@ are detailed while following a typical MICA workflow.
 
 ![MICA GUI](/doc/MICA-GUI.png?raw=true "MICA graphical user interface")
 
-(Snapshot for example data set [data/HF-density-1976.csv](/data/HF-density-1976.csv))
+(Snapshot for example data set [data/HF-density-1976.csv](data/HF-density-1976.csv))
 
 <a name="MICAinput" />
 
@@ -198,7 +198,7 @@ via the [R interface](#RI).
 The y-values for all curves are to be encoded columns-wise.
 
 Curve data can be loaded in CSV format (one curve per column, see 
-[example files](/data/) within the [data](/data/) subfolder) either
+[example files](data/) within the [data](data/) subfolder) either
 
 - use the `File` submenu `Import curve`, or
 - double-click at the `Curve selection` field in the upper left corner, or
