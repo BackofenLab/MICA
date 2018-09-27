@@ -1,5 +1,3 @@
-	
-version 2.0.2
 
 180927 MR :
 	* controller/MicaR :
@@ -8,6 +6,10 @@ version 2.0.2
 	  * getConsensusX() :
 	  * getConsensusY() :
 	    + dedicated exception handling
+	* view/ViewCsvExpSettings : 
+	  * initForm() :
+	    * default height increased to 190 (was 150) to avoid layouting issues
+	      (thanks to Alexander Mattheis, solves PR #21)
 	
 version 2.0.2
 
