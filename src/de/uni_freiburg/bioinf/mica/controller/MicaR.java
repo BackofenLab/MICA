@@ -284,9 +284,10 @@ public class MicaR implements AutoCloseable {
 		
 		if (isAligned()) {
 			return originalCurves.get(curveIdx).getCurveOriginal().getSlope();
+		} else {
+			// emergency handling
+			throw new IllegalStateException("no alignment available yet, did you call 'align' yet?");
 		}
-		// emergency handling
-		return new double[0];
 	}
 	
 	/**
@@ -308,9 +309,12 @@ public class MicaR implements AutoCloseable {
 					return d.getCurve().getSlope();
 				}
 			}
+			// emergency handling
+			throw new RuntimeException("could not find the aligned data for curve"+String.valueOf(curveIdx));
+		} else {
+			// emergency handling
+			throw new IllegalStateException("no alignment available yet, did you call 'align' yet?");
 		}
-		// emergency handling
-		return new double[0];
 	}
 	
 	
@@ -333,9 +337,12 @@ public class MicaR implements AutoCloseable {
 					return d.getCurve().getX();
 				}
 			}
+			// emergency handling
+			throw new RuntimeException("could not find the aligned data for curve"+String.valueOf(curveIdx));
+		} else {
+			// emergency handling
+			throw new IllegalStateException("no alignment available yet, did you call 'align' yet?");
 		}
-		// emergency handling
-		return new double[0];
 	}
 	
 	/**
@@ -353,9 +360,10 @@ public class MicaR implements AutoCloseable {
 	public double[] getConsensusX() {
 		if (isAligned()) {
 			return alignment.consensus.getCurve().getX();
+		} else {
+			// emergency handling
+			throw new IllegalStateException("no alignment available yet, did you call 'align' yet?");
 		}
-		// emergency handling
-		return new double[0];
 	}
 	
 	/**
@@ -365,9 +373,10 @@ public class MicaR implements AutoCloseable {
 	public double[] getConsensusY() {
 		if (isAligned()) {
 			return alignment.consensus.getCurve().getY();
+		} else {
+			// emergency handling
+			throw new IllegalStateException("no alignment available yet, did you call 'align' yet?");
 		}
-		// emergency handling
-		return new double[0];
 	}
 	
 	/**
