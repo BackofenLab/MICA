@@ -273,7 +273,7 @@ interpolateCurve <- function( x, y, samples ) {
 	if (length(y)<3) stop("min length of y is 3");
 
 	# create x data to be interpolated
-	xNew <- x[1] + ((x[length(x)-x[1]])*((0:(samples-1))/(samples-1)));
+	xNew <- x[1] + ((x[length(x)]-x[1])*((0:(samples-1))/(samples-1)));
 
 	# create curve object
 	jCurve <- rJava::.jnew("de/uni_freiburg/bioinf/mica/algorithm/Curve","newCurve", x, y );

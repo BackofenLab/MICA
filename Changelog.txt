@@ -1,3 +1,10 @@
+	
+version 2.0.3
+
+180927 MR :
+	* R/mica-functions.R :
+	  * interpolateCurve() :
+	    * bugfix interval length formula
 
 180927 MR :
 	* controller/MicaR :
