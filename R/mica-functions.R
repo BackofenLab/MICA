@@ -27,13 +27,13 @@ initMica <- function( micaJavaPath ) {
 
 	# check if all-in-one mica.jar available
 	allInOneJarAvailable = FALSE;
-	if (sum(file.access(paste(micaJavaPath ,"\\mica.jar",sep=""),4)) == 0 )  {
+	if (sum(file.access(paste(micaJavaPath, .Platform$file.sep, "mica.jar",sep=""),4)) == 0 )  {
 		allInOneJarAvailable = TRUE;
 	}
 	# check if dependencies are available
 	depJars = c("commons-lang3-3.4.jar","commons-math3-3.6.1.jar","java-hamcrest-2.0.0.0.jar");
 	for( depJar in depJars ) {
-		if (sum(file.access(paste(micaJavaPath,depJar,sep="\\"),4)) != 0 ) stop(paste("given micaJavaPath='",micaJavaPath,"' does not contain needed jar file '",depJar,"'",sep=""));
+		if (sum(file.access(paste(micaJavaPath,depJar,sep=.Platform$file.sep),4)) != 0 ) stop(paste("given micaJavaPath='",micaJavaPath,"' does not contain needed jar file '",depJar,"'",sep=""));
 	}
 
 	# initialize java interface
@@ -44,12 +44,12 @@ initMica <- function( micaJavaPath ) {
 
 	# extend classpath accordingly
 	if (allInOneJarAvailable) {
-		rJava::.jaddClassPath(paste(micaJavaPath ,"\\mica.jar",sep=""));
+		rJava::.jaddClassPath(paste(micaJavaPath,.Platform$file.sep,"mica.jar",sep=""));
 	} else {
 		rJava::.jaddClassPath(micaJavaPath)
 	}
 	for( depJar in depJars ) {
-		rJava::.jaddClassPath(paste(micaJavaPath,depJar,sep="\\"));
+		rJava::.jaddClassPath(paste(micaJavaPath,depJar,sep=.Platform$file.sep));
 	}
 
 	micaSetup$wasInitialized <<- TRUE;
