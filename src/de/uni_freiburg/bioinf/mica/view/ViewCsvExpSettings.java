@@ -242,7 +242,8 @@ public class ViewCsvExpSettings extends JDialog
 		
 		// Set the properties of this frame.
 		this.setDefaultCloseOperation(JFrame.HIDE_ON_CLOSE);
-		this.setMinimumSize(new Dimension(400, 150));
+		this.setMinimumSize(new Dimension(400, 190));
+		this.setResizable(false);
 		this.setLocationRelativeTo(null);
 		
 		// Add listener if the user closes the window with the [x]

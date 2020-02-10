@@ -1,3 +1,24 @@
+	
+version 2.0.3
+
+180927 MR :
+	* R/mica-functions.R :
+	  * interpolateCurve() :
+	    * bugfix interval length formula
+
+180927 MR :
+	* controller/MicaR :
+	  * getAlignedX() :
+	  * getAlignedSlope() :
+	  * getConsensusX() :
+	  * getConsensusY() :
+	    + dedicated exception handling
+	* view/ViewCsvExpSettings : 
+	  * initForm() :
+	    * default height increased to 190 (was 150) to avoid layouting issues
+	      (thanks to Alexander Mattheis, solves PR #21)
+	
+version 2.0.2
 
 180212 MR :
 	* view/View* : 
