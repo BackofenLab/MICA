@@ -1,0 +1,4 @@
+Manifest-Version: 1.0
+Main-Class: de.uni_freiburg.bioinf.mica.controller.MicaMain
+Class-Path: lib/commons-lang3-3.4.jar lib/commons-math3-3.6.1.jar lib/java-hamcrest-2.0.0.0.jar lib/jopt-simple-5.0.2.jar lib/junit-4.11.jar lib/javafx.base-11.0.2.jar
+

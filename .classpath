@@ -2,7 +2,11 @@
 <classpath>
 	<classpathentry kind="src" path="src"/>
 	<classpathentry kind="src" path="test"/>
-	<classpathentry kind="con" path="org.eclipse.jdt.launching.JRE_CONTAINER"/>
+	<classpathentry kind="con" path="org.eclipse.jdt.launching.JRE_CONTAINER">
+		<attributes>
+			<attribute name="module" value="true"/>
+		</attributes>
+	</classpathentry>
 	<classpathentry kind="lib" path="lib/commons-lang3-3.4.jar" sourcepath="lib/commons-lang3-3.4-src.zip">
 		<attributes>
 			<attribute name="javadoc_location" value="jar:lib/commons-lang3-3.4-javadoc.jar!/"/>
@@ -28,5 +32,6 @@
 			<attribute name="javadoc_location" value="jar:lib/junit-4.11-javadoc.jar!/"/>
 		</attributes>
 	</classpathentry>
+	<classpathentry kind="lib" path="lib/javafx.base-11.0.2.jar"/>
 	<classpathentry kind="output" path="bin"/>
 </classpath>
